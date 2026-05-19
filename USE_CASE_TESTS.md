@@ -147,3 +147,31 @@ xfpl top-transfers-json --agent
 2. `elite-json` JSON schema labels for ownership/EO/captaincy% values.
 3. `--human-friendly` table renderer for `captain`.
 4. `xfpl which "captain ranker"` returns 0 matches — the capability index in `which.go` does not include captain/explain/chip-plan terms.
+
+## Post-rename verification (2026-05-19, after `livefpl` → `xfpl`)
+
+After the full rename (module path, cmd dirs, binary names, docs, GitHub repo), every use case was re-run against the new `xfpl` binary built from `github.com/ananthmenon10/xfpl`. Results below confirm parity with the pre-rename run on every probe.
+
+| Probe | Pre-rename | Post-rename | Match |
+|---|---|---|---|
+| `captain --top 5` GW38 #1 pick | Gibbs-White (14.09) | Gibbs-White (14.09) | ✔ |
+| `compare Haaland Watkins` ep_next | 5.7 / 8.1 | 5.7 / 8.1 | ✔ |
+| `chip-plan 5505524` recommendation | "no obvious chip windows…" | "no obvious chip windows…" | ✔ |
+| `explain rank 5505524` GW37 captain | Saka (×2, 20pts) | Saka (×2, 20pts) | ✔ |
+| `explain rank 3027768` GW37 top | Gabriel | Gabriel | ✔ |
+| `explain rank 2569513` GW37 top | B.Fernandes | B.Fernandes | ✔ |
+| `top-transfers-json` top pair | Thiago→Calvert-Lewin | Thiago→Calvert-Lewin | ✔ |
+
+**Fresh install path verified:**
+
+```
+$ go install github.com/ananthmenon10/xfpl/cmd/xfpl@latest
+$ xfpl --version
+xfpl 1.0.0
+```
+
+Clean-room run on an empty `$GOBIN` produced a 65MB binary in ~7 seconds. No environment errors, no auth prompts, no manual steps.
+
+**CI verified:** GitHub Actions on the renamed repo passed in 2m44s on commit `9f8006b` — gofmt + vet + tests + cross-platform build all green.
+
+**Repo URL:** `https://github.com/ananthmenon10/xfpl` (the old `…/livefpl` URL auto-redirects via GitHub).

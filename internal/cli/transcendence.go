@@ -42,7 +42,9 @@ func newExplainRankCmd(flags *rootFlags) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			data, err := c.Get("https://www.livefpl.net/livefplapi/"+args[0], nil)
+			teamID := args[0]
+
+			data, err := c.Get("https://www.livefpl.net/livefplapi/"+teamID, nil)
 			if err != nil {
 				return classifyAPIError(err, flags)
 			}
@@ -53,35 +55,116 @@ func newExplainRankCmd(flags *rootFlags) *cobra.Command {
 
 			var gwRank int64
 			_ = json.Unmarshal(snap["GWrank"], &gwRank)
-
-			var bench int64
-			_ = json.Unmarshal(snap["bench"], &bench)
-
+			var benchPts int64
+			_ = json.Unmarshal(snap["bench"], &benchPts)
+			var capPts int64
+			_ = json.Unmarshal(snap["cap_pts"], &capPts)
+			var gwPoints int
+			var scores []int
+			if err := json.Unmarshal(snap["scores"], &scores); err == nil && len(scores) > 0 {
+				gwPoints = scores[0]
+			}
 			var pts map[string]int64
 			_ = json.Unmarshal(snap["calcplayerptsd"], &pts)
 
+			// Determine current GW so we can fetch FPL-side picks.
+			bootData, err := c.Get("https://fantasy.premierleague.com/api/bootstrap-static/", nil)
+			if err != nil {
+				return classifyAPIError(err, flags)
+			}
+			var bs struct {
+				Elements []bootElement `json:"elements"`
+				Teams    []bootTeam    `json:"teams"`
+				Events   []struct {
+					ID        int  `json:"id"`
+					IsCurrent bool `json:"is_current"`
+					IsNext    bool `json:"is_next"`
+					Finished  bool `json:"finished"`
+				} `json:"events"`
+			}
+			_ = json.Unmarshal(bootData, &bs)
+			nameByID := map[int]string{}
+			teamByID := map[int]string{}
+			b := &bootStatic{Elements: bs.Elements, Teams: bs.Teams}
+			for _, e := range bs.Elements {
+				nameByID[e.ID] = e.WebName
+				teamByID[e.ID] = teamShort(b, e.Team)
+			}
+			curGW := 0
+			for _, ev := range bs.Events {
+				if ev.IsCurrent {
+					curGW = ev.ID
+					break
+				}
+			}
+			if curGW == 0 {
+				// Fallback to last finished GW.
+				for _, ev := range bs.Events {
+					if ev.Finished && ev.ID > curGW {
+						curGW = ev.ID
+					}
+				}
+			}
+
 			type contrib struct {
-				ElementID int   `json:"element_id"`
-				Points    int64 `json:"points"`
+				ElementID  int    `json:"element_id"`
+				Name       string `json:"name,omitempty"`
+				Team       string `json:"team,omitempty"`
+				Raw        int    `json:"raw_points"`
+				Multiplier int    `json:"multiplier"`
+				Effective  int    `json:"effective_points"`
+				IsCaptain  bool   `json:"is_captain,omitempty"`
 			}
-			out := make([]contrib, 0, len(pts))
-			for k, v := range pts {
-				id, _ := strconv.Atoi(k)
-				out = append(out, contrib{ElementID: id, Points: v})
-			}
-			sort.Slice(out, func(i, j int) bool { return out[i].Points > out[j].Points })
-			if len(out) > 5 {
-				out = out[:5]
+			top := make([]contrib, 0, 11)
+
+			if curGW > 0 {
+				picksData, perr := c.Get(
+					fmt.Sprintf("https://fantasy.premierleague.com/api/entry/%s/event/%d/picks/", teamID, curGW),
+					nil,
+				)
+				if perr == nil {
+					var picks struct {
+						Picks []struct {
+							Element    int  `json:"element"`
+							Multiplier int  `json:"multiplier"`
+							IsCaptain  bool `json:"is_captain"`
+						} `json:"picks"`
+					}
+					if json.Unmarshal(picksData, &picks) == nil {
+						for _, p := range picks.Picks {
+							raw := int(pts[strconv.Itoa(p.Element)])
+							if p.Multiplier == 0 {
+								continue
+							}
+							top = append(top, contrib{
+								ElementID:  p.Element,
+								Name:       nameByID[p.Element],
+								Team:       teamByID[p.Element],
+								Raw:        raw,
+								Multiplier: p.Multiplier,
+								Effective:  raw * p.Multiplier,
+								IsCaptain:  p.IsCaptain,
+							})
+						}
+						sort.Slice(top, func(i, j int) bool { return top[i].Effective > top[j].Effective })
+						if len(top) > 5 {
+							top = top[:5]
+						}
+					}
+				}
 			}
 
 			payload := map[string]any{
-				"team_id":           args[0],
-				"gw_rank":           gwRank,
-				"bench_points":      bench,
-				"top_contributors":  out,
+				"team_id":          teamID,
+				"gw":               curGW,
+				"gw_points":        gwPoints,
+				"gw_rank":          gwRank,
+				"bench_points":     benchPts,
+				"captain_points":   capPts,
+				"top_contributors": top,
 			}
-			b, _ := json.MarshalIndent(payload, "", "  ")
-			fmt.Fprintln(cmd.OutOrStdout(), string(b))
+			out, _ := json.MarshalIndent(payload, "", "  ")
+			fmt.Fprintln(cmd.OutOrStdout(), string(out))
 			return nil
 		},
 	}

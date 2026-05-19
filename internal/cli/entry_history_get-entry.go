@@ -17,7 +17,7 @@ func newEntryHistoryGetEntryCmd(flags *rootFlags) *cobra.Command {
 		Use:         "get-entry <managerId>",
 		Aliases:     []string{"get"},
 		Short:       "Manager history (per-GW score, past seasons, chips)",
-		Example:     "  livefpl entry history get-entry 42",
+		Example:     "  xfpl entry history get-entry 42",
 		Annotations: map[string]string{"pp:endpoint": "history.get-entry", "pp:method": "GET", "pp:path": "/entry/{managerId}/history/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 {

@@ -18,7 +18,7 @@ func newLhApi2PromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "lh-api2",
 		Short:       "Returns FT, bank, chips_available, base_gw, eleven, picks, benches, bought_values per element_id, manager_name,...",
 		Long:        "Shortcut for 'lh-api2 get-planner-snapshot'. Returns FT, bank, chips_available, base_gw, eleven, picks, benches, bought_values per element_id, manager_name,...",
-		Example:     "  livefpl lh-api2 --id 550e8400-e29b-41d4-a716-446655440000",
+		Example:     "  xfpl lh-api2 --id 550e8400-e29b-41d4-a716-446655440000",
 		Annotations: map[string]string{"pp:endpoint": "lh-api2.get-planner-snapshot", "pp:method": "GET", "pp:path": "https://livefpl-api-489391001748.europe-west4.run.app/LH_api2/planner/snapshot", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if !cmd.Flags().Changed("id") && !flags.dryRun {

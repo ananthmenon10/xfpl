@@ -13,9 +13,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ananthmenon10/livefpl/internal/client"
-	"github.com/ananthmenon10/livefpl/internal/config"
-	"github.com/ananthmenon10/livefpl/internal/store"
+	"github.com/ananthmenon10/xfpl/internal/client"
+	"github.com/ananthmenon10/xfpl/internal/config"
+	"github.com/ananthmenon10/xfpl/internal/store"
 	"github.com/spf13/cobra"
 )
 
@@ -68,9 +68,9 @@ func newDoctorCmd(flags *rootFlags) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "doctor",
 		Short: "Check CLI health",
-		Example: `  livefpl doctor
-  livefpl doctor --json
-  livefpl doctor --fail-on warn`,
+		Example: `  xfpl doctor
+  xfpl doctor --json
+  xfpl doctor --fail-on warn`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			report := map[string]any{}
 
@@ -339,14 +339,14 @@ func doctorExitForFailOn(failOn string, report map[string]any) error {
 // because the alternative is no freshness story at all.
 func collectCacheReport(ctx context.Context, staleAfterSpec string) map[string]any {
 	report := map[string]any{}
-	dbPath := defaultDBPath("livefpl")
+	dbPath := defaultDBPath("xfpl")
 	report["db_path"] = dbPath
 
 	fi, err := os.Stat(dbPath)
 	if err != nil {
 		if os.IsNotExist(err) {
 			report["status"] = "unknown"
-			report["hint"] = "Database not created yet; run 'livefpl sync' to hydrate."
+			report["hint"] = "Database not created yet; run 'xfpl sync' to hydrate."
 			return report
 		}
 		report["status"] = "error"
@@ -379,7 +379,7 @@ func collectCacheReport(ctx context.Context, staleAfterSpec string) map[string]a
 		// sync_state may not exist on a fresh DB that has migrated but not
 		// yet had any sync runs — treat as unknown rather than error.
 		report["status"] = "unknown"
-		report["hint"] = "No sync state recorded; run 'livefpl sync' to populate."
+		report["hint"] = "No sync state recorded; run 'xfpl sync' to populate."
 		return report
 	}
 	defer rows.Close()
@@ -419,13 +419,13 @@ func collectCacheReport(ctx context.Context, staleAfterSpec string) map[string]a
 	switch {
 	case !haveAny && len(resources) == 0:
 		report["status"] = "unknown"
-		report["hint"] = "sync_state is empty; run 'livefpl sync' to hydrate."
+		report["hint"] = "sync_state is empty; run 'xfpl sync' to hydrate."
 	case fresh:
 		report["status"] = "fresh"
 	default:
 		report["status"] = "stale"
 		report["oldest_age"] = oldest.Round(time.Minute).String()
-		report["hint"] = "Some resources are older than stale_after; run 'livefpl sync' to refresh."
+		report["hint"] = "Some resources are older than stale_after; run 'xfpl sync' to refresh."
 	}
 	return report
 }

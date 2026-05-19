@@ -19,7 +19,7 @@ func newFixturesPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "fixtures",
 		Short:       "All season fixtures (optionally filtered by event)",
 		Long:        "Shortcut for 'fixtures get'. All season fixtures (optionally filtered by event)",
-		Example:     "  livefpl fixtures",
+		Example:     "  xfpl fixtures",
 		Annotations: map[string]string{"pp:endpoint": "fixtures.get", "pp:method": "GET", "pp:path": "/fixtures/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

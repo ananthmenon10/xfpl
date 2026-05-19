@@ -17,7 +17,7 @@ func newMyTeamPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "my-team <managerId>",
 		Short:       "Requires a session cookie from a logged-in fantasy.premierleague.com session. Opt-in only; we surface this behind a...",
 		Long:        "Shortcut for 'my-team get'. Requires a session cookie from a logged-in fantasy.premierleague.com session. Opt-in only; we surface this behind a...",
-		Example:     "  livefpl my-team 42",
+		Example:     "  xfpl my-team 42",
 		Annotations: map[string]string{"pp:endpoint": "my-team.get", "pp:method": "GET", "pp:path": "/my-team/{managerId}/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

@@ -17,7 +17,7 @@ func newTeamPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "team",
 		Short:       "Set-piece taker notes per club",
 		Long:        "Shortcut for 'team get-set-piece-notes'. Set-piece taker notes per club",
-		Example:     "  livefpl team",
+		Example:     "  xfpl team",
 		Annotations: map[string]string{"pp:endpoint": "team.get-set-piece-notes", "pp:method": "GET", "pp:path": "/team/set-piece-notes/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

@@ -6,8 +6,8 @@ package cli
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/ananthmenon10/livefpl/internal/cliutil"
-	"github.com/ananthmenon10/livefpl/internal/store"
+	"github.com/ananthmenon10/xfpl/internal/cliutil"
+	"github.com/ananthmenon10/xfpl/internal/store"
 	"github.com/spf13/cobra"
 	"net/url"
 	"os"
@@ -81,22 +81,22 @@ Resource scoping:
   the dependent by name; the parent table must already be populated
   from a prior sync.`,
 		Example: `  # Sync all resources
-  livefpl sync
+  xfpl sync
 
   # Sync specific resources only
-  livefpl sync --resources channels,messages
+  xfpl sync --resources channels,messages
 
   # Full resync (ignore previous checkpoint)
-  livefpl sync --full
+  xfpl sync --full
 
   # Incremental sync: only records from the last 7 days
-  livefpl sync --since 7d
+  xfpl sync --since 7d
 
   # Parallel sync with 8 workers
-  livefpl sync --concurrency 8
+  xfpl sync --concurrency 8
 
   # Latest-only: refresh head of each resource, no historical backfill
-  livefpl sync --latest-only`,
+  xfpl sync --latest-only`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			userParams, err := parseSyncUserParams(paramFlags, resourceParamFlags, globalParamFlags)
 			if err != nil {
@@ -110,7 +110,7 @@ Resource scoping:
 			c.NoCache = true
 
 			if dbPath == "" {
-				dbPath = defaultDBPath("livefpl")
+				dbPath = defaultDBPath("xfpl")
 			}
 
 			db, err := store.OpenWithContext(cmd.Context(), dbPath)
@@ -303,7 +303,7 @@ Resource scoping:
 	cmd.Flags().BoolVar(&full, "full", false, "Full resync (ignore previous checkpoint)")
 	cmd.Flags().StringVar(&since, "since", "", "Incremental sync duration (e.g. 7d, 24h, 1w, 30m)")
 	cmd.Flags().IntVar(&concurrency, "concurrency", 4, "Number of parallel sync workers")
-	cmd.Flags().StringVar(&dbPath, "db", "", "Database path (default: ~/.local/share/livefpl/data.db)")
+	cmd.Flags().StringVar(&dbPath, "db", "", "Database path (default: ~/.local/share/xfpl/data.db)")
 	cmd.Flags().IntVar(&maxPages, "max-pages", 100, "Maximum pages to fetch per resource (0 = unlimited; cap-hit emits a sync_warning event)")
 	cmd.Flags().BoolVar(&latestOnly, "latest-only", false, "Refresh head of each resource only; clears resume cursor and caps pages at 1. Mutually exclusive with --since (--since wins).")
 	cmd.Flags().BoolVar(&strict, "strict", false, "Exit non-zero on any per-resource failure (default: only critical failures or all-resource failure exit non-zero).")

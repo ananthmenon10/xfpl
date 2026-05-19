@@ -139,7 +139,7 @@ Scores each available outfield player and goalkeeper by:
 
 Add --explain to see each component, --gw N to score a future gameweek, and
 --min-minutes to filter out players with low season minutes.`,
-		Example: "  livefpl captain --top 5\n  livefpl captain --top 10 --explain\n  livefpl captain --gw 38",
+		Example: "  xfpl captain --top 5\n  xfpl captain --top 10 --explain\n  xfpl captain --gw 38",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()
 			if err != nil {

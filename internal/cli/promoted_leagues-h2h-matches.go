@@ -17,7 +17,7 @@ func newLeaguesH2hMatchesPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "leagues-h2h-matches <leagueId>",
 		Short:       "H2H league matches",
 		Long:        "Shortcut for 'leagues-h2h-matches get-h2h-league-matches'. H2H league matches",
-		Example:     "  livefpl leagues-h2h-matches 42",
+		Example:     "  xfpl leagues-h2h-matches 42",
 		Annotations: map[string]string{"pp:endpoint": "leagues-h2h-matches.get-h2h-league-matches", "pp:method": "GET", "pp:path": "/leagues-h2h-matches/league/{leagueId}/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

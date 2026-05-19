@@ -17,7 +17,7 @@ func newEventLiveGetEventCmd(flags *rootFlags) *cobra.Command {
 		Use:         "get-event <eventId>",
 		Aliases:     []string{"get"},
 		Short:       "Live gameweek stats (per-player points and explain breakdown)",
-		Example:     "  livefpl event live get-event 42",
+		Example:     "  xfpl event live get-event 42",
 		Annotations: map[string]string{"pp:endpoint": "live.get-event", "pp:method": "GET", "pp:path": "/event/{eventId}/live/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 {

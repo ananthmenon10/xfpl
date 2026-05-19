@@ -17,7 +17,7 @@ func newEntryEventGetEntryPicksCmd(flags *rootFlags) *cobra.Command {
 		Use:         "get-entry-picks <managerId> <eventId>",
 		Aliases:     []string{"get"},
 		Short:       "Manager picks for a specific gameweek",
-		Example:     "  livefpl entry event get-entry-picks 42 42",
+		Example:     "  xfpl entry event get-entry-picks 42 42",
 		Annotations: map[string]string{"pp:endpoint": "event.get-entry-picks", "pp:method": "GET", "pp:path": "/entry/{managerId}/event/{eventId}/picks/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 {

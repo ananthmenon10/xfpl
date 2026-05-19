@@ -17,7 +17,7 @@ func newLocalsLeagueIdJsonPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "locals-league-id-json <leagueId>",
 		Short:       "Available for indexed (popular) leagues; small leagues 404 here and must use the dynamic livefplapi path on...",
 		Long:        "Shortcut for 'locals-league-id-json get-league-locals-snapshot'. Available for indexed (popular) leagues; small leagues 404 here and must use the dynamic livefplapi path on...",
-		Example:     "  livefpl locals-league-id-json 42",
+		Example:     "  xfpl locals-league-id-json 42",
 		Annotations: map[string]string{"pp:endpoint": "locals-league-id-json.get-league-locals-snapshot", "pp:method": "GET", "pp:path": "https://livefpl.us/locals_{leagueId}.json", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

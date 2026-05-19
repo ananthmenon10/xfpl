@@ -17,7 +17,7 @@ func newEventStatusPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "event-status",
 		Short:       "Bonus and league update status across active GW",
 		Long:        "Shortcut for 'event-status get'. Bonus and league update status across active GW",
-		Example:     "  livefpl event-status",
+		Example:     "  xfpl event-status",
 		Annotations: map[string]string{"pp:endpoint": "event-status.get", "pp:method": "GET", "pp:path": "/event-status/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

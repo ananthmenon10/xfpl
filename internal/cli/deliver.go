@@ -99,7 +99,7 @@ func deliverWebhook(url string, body []byte, compact bool) error {
 		return fmt.Errorf("building webhook request: %w", err)
 	}
 	req.Header.Set("Content-Type", contentType)
-	req.Header.Set("User-Agent", "livefpl/deliver")
+	req.Header.Set("User-Agent", "xfpl/deliver")
 
 	client := &http.Client{Timeout: 30 * time.Second}
 	resp, err := client.Do(req)

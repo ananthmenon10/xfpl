@@ -17,7 +17,7 @@ func newMePromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "me",
 		Short:       "Authenticated user's own profile",
 		Long:        "Shortcut for 'me get'. Authenticated user's own profile",
-		Example:     "  livefpl me",
+		Example:     "  xfpl me",
 		Annotations: map[string]string{"pp:endpoint": "me.get", "pp:method": "GET", "pp:path": "/me/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

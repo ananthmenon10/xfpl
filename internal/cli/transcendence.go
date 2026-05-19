@@ -2,9 +2,9 @@
 //
 // Hand-authored novel commands (manifest C2/C4/C5):
 //
-//   livefpl explain rank <teamId>  — top contributors to current GW rank
-//   livefpl captain                — ranked captain picks for the next GW
-//   livefpl chip-plan <teamId>     — blank/double GWs vs remaining chips
+//   xfpl explain rank <teamId>  — top contributors to current GW rank
+//   xfpl captain                — ranked captain picks for the next GW
+//   xfpl chip-plan <teamId>     — blank/double GWs vs remaining chips
 //
 // These synthesize multiple endpoints; the underlying single-endpoint
 // commands remain available (livefplapi, elite-json, lh-api2, etc.).
@@ -35,7 +35,7 @@ func newExplainRankCmd(flags *rootFlags) *cobra.Command {
 	return &cobra.Command{
 		Use:     "rank <teamId>",
 		Short:   "Top contributors to current gameweek rank for a team",
-		Example: "  livefpl explain rank 5505524",
+		Example: "  xfpl explain rank 5505524",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()
@@ -50,7 +50,7 @@ func newExplainRankCmd(flags *rootFlags) *cobra.Command {
 			}
 			var snap map[string]json.RawMessage
 			if err := json.Unmarshal(data, &snap); err != nil {
-				return apiErr(fmt.Errorf("decoding livefpl snapshot: %w", err))
+				return apiErr(fmt.Errorf("decoding xfpl snapshot: %w", err))
 			}
 
 			var gwRank int64
@@ -176,7 +176,7 @@ func newChipPlanCmd(flags *rootFlags) *cobra.Command {
 	return &cobra.Command{
 		Use:     "chip-plan <teamId>",
 		Short:   "Remaining chips × upcoming blank / double gameweeks",
-		Example: "  livefpl chip-plan 5505524",
+		Example: "  xfpl chip-plan 5505524",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

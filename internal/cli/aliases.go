@@ -20,7 +20,7 @@ var manifestAliases = map[string][]string{
 	"top-transfers-json":  {"trending"},
 	"lh-api2":             {"planner"},
 	"elite-json":          {"top10k", "eo"},
-	"version-json":        {"livefpl-version"},
+	"version-json":        {"xfpl-version"},
 	"element-summary":     {"player-id"},
 	"leagues-classic":     {"league"},
 	"leagues-h2h-matches": {"h2h"},

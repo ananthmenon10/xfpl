@@ -17,7 +17,7 @@ func newEntryPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "entry <managerId>",
 		Short:       "Manager profile (name, country, leagues, summary score)",
 		Long:        "Shortcut for 'entry get'. Manager profile (name, country, leagues, summary score)",
-		Example:     "  livefpl entry 42",
+		Example:     "  xfpl entry 42",
 		Annotations: map[string]string{"pp:endpoint": "entry.get", "pp:method": "GET", "pp:path": "/entry/{managerId}/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

@@ -39,7 +39,7 @@ func Load(configPath string) (*Config, error) {
 	}
 	if path == "" {
 		home, _ := os.UserHomeDir()
-		path = filepath.Join(home, ".config", "livefpl", "config.toml")
+		path = filepath.Join(home, ".config", "xfpl", "config.toml")
 	}
 	cfg.Path = path
 

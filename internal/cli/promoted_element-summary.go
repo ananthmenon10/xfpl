@@ -17,7 +17,7 @@ func newElementSummaryPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "element-summary <elementId>",
 		Short:       "Per-player detail (history + upcoming fixtures)",
 		Long:        "Shortcut for 'element-summary get'. Per-player detail (history + upcoming fixtures)",
-		Example:     "  livefpl element-summary 42",
+		Example:     "  xfpl element-summary 42",
 		Annotations: map[string]string{"pp:endpoint": "element-summary.get", "pp:method": "GET", "pp:path": "/element-summary/{elementId}/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

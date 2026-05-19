@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/ananthmenon10/livefpl/internal/client"
-	"github.com/ananthmenon10/livefpl/internal/cliutil"
+	"github.com/ananthmenon10/xfpl/internal/client"
+	"github.com/ananthmenon10/xfpl/internal/cliutil"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"io"
@@ -484,15 +484,15 @@ func classifyAPIError(err error, flags *rootFlags) error {
 		return classified
 	case strings.Contains(msg, "HTTP 400") && cliutil.LooksLikeAuthError(msg):
 		return authErr(fmt.Errorf("%w\nhint: the API rejected the request — this usually means auth is missing or invalid."+
-			"\n      Run 'livefpl doctor' to check auth status."+
+			"\n      Run 'xfpl doctor' to check auth status."+
 			"\n      Response: "+cliutil.SanitizeErrorBody(msg), err))
 	case strings.Contains(msg, "HTTP 401"):
 		return authErr(fmt.Errorf("%w\nhint: check your API key."+
-			"\n      Run 'livefpl doctor' to check auth status.", err))
+			"\n      Run 'xfpl doctor' to check auth status.", err))
 	case strings.Contains(msg, "HTTP 403"):
 		return authErr(fmt.Errorf("%w\nhint: permission denied. Your credentials are valid but lack access to this resource."+
 			"\n      Check that your API key has the required permissions."+
-			"\n      Run 'livefpl doctor' to check auth status.", err))
+			"\n      Run 'xfpl doctor' to check auth status.", err))
 	case strings.Contains(msg, "HTTP 404"):
 		return notFoundErr(fmt.Errorf("%w\nhint: resource not found. Run the 'list' command to see available items", err))
 	case strings.Contains(msg, "HTTP 429"):

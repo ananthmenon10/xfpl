@@ -2,8 +2,8 @@
 //
 // Hand-authored manifest commands:
 //
-//   livefpl compare <name> <name> [<name> ...]  — side-by-side player view (A4)
-//   livefpl player  <name>                      — name-based player lookup (A2)
+//   xfpl compare <name> <name> [<name> ...]  — side-by-side player view (A4)
+//   xfpl player  <name>                      — name-based player lookup (A2)
 //
 // Both resolve names against bootstrap-static.elements[].web_name with a
 // simple case-insensitive substring match.
@@ -142,7 +142,7 @@ func newPlayerLookupCmd(flags *rootFlags) *cobra.Command {
 		Use:     "player <name>",
 		Aliases: []string{"who"},
 		Short:   "Find a player by name (case-insensitive substring match)",
-		Example: "  livefpl player Haaland",
+		Example: "  xfpl player Haaland",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			b, err := fetchBootstrap(flags)
@@ -165,7 +165,7 @@ func newCompareCmd(flags *rootFlags) *cobra.Command {
 	return &cobra.Command{
 		Use:     "compare <name> <name> [<name>...]",
 		Short:   "Side-by-side comparison of 2+ players (price, form, points, ownership)",
-		Example: "  livefpl compare Haaland Salah Watkins",
+		Example: "  xfpl compare Haaland Salah Watkins",
 		Args:    cobra.MinimumNArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			b, err := fetchBootstrap(flags)

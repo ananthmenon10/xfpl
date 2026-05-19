@@ -1,6 +1,6 @@
 # Build artifacts
-/livefpl
-/livefpl-mcp
+/xfpl
+/xfpl-mcp
 /dist/
 /build/
 

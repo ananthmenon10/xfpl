@@ -17,7 +17,7 @@ func newTopTransfersJsonPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "top-transfers-json",
 		Short:       "Array of [out_player_id, in_player_id, count_million, pct_share]. Sorted descending by volume. Updated every few...",
 		Long:        "Shortcut for 'top-transfers-json get-top-transfers'. Array of [out_player_id, in_player_id, count_million, pct_share]. Sorted descending by volume. Updated every few...",
-		Example:     "  livefpl top-transfers-json",
+		Example:     "  xfpl top-transfers-json",
 		Annotations: map[string]string{"pp:endpoint": "top-transfers-json.get-top-transfers", "pp:method": "GET", "pp:path": "https://livefpl.us/top_transfers.json", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

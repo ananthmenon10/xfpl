@@ -30,7 +30,7 @@ jobs:
 
       - name: Build binaries
         run: |
-          go build -o livefpl ./cmd/livefpl
-          go build -o livefpl-mcp ./cmd/livefpl-mcp
-          ./livefpl --version
-          test -x ./livefpl-mcp
+          go build -o xfpl ./cmd/xfpl
+          go build -o xfpl-mcp ./cmd/xfpl-mcp
+          ./xfpl --version
+          test -x ./xfpl-mcp

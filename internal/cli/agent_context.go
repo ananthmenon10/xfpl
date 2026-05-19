@@ -115,7 +115,7 @@ func buildAgentContext(rootCmd *cobra.Command) agentContext {
 	return agentContext{
 		SchemaVersion: agentContextSchemaVersion,
 		CLI: agentContextCLI{
-			Name:        "livefpl",
+			Name:        "xfpl",
 			Description: "Combined CLI for multiple API services",
 			Version:     rootCmd.Version,
 		},

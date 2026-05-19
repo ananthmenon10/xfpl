@@ -2,9 +2,9 @@
   "schema_version": 1,
   "generated_at": "2026-05-19T04:17:55.501324Z",
   "printing_press_version": "4.9.0",
-  "api_name": "livefpl",
+  "api_name": "xfpl",
   "display_name": "Livefpl",
-  "cli_name": "livefpl",
+  "cli_name": "xfpl",
   "owner": "ananth-menon",
   "printer": "ananthmenon10",
   "printer_name": "Ananth Menon",
@@ -12,7 +12,7 @@
   "spec_format": "openapi3",
   "spec_checksum": "sha256:be791b3f3cd4905bdb13f269547adb2ab855d04f6e3236a4b7f5d1d7dbbed4e3",
   "run_id": "20260519-041755",
-  "mcp_binary": "livefpl-mcp",
+  "mcp_binary": "xfpl-mcp",
   "auth_optional": true,
   "mcp_tool_count": 23,
   "mcp_public_tool_count": 21,
@@ -25,27 +25,27 @@
   "novel_features": [
     {
       "name": "Explain Rank",
-      "command": "livefpl explain rank <teamId>",
+      "command": "xfpl explain rank <teamId>",
       "description": "Top five player contributions to the current gameweek rank for a given FPL manager — synthesized from the LiveFPL per-team snapshot."
     },
     {
       "name": "Captain Ranker",
-      "command": "livefpl captain --top <N> [--explain] [--gw N]",
+      "command": "xfpl captain --top <N> [--explain] [--gw N]",
       "description": "Ranked captain picks for the upcoming gameweek scored by ep_next × FDR × home/away × xGI/90 × minutes-risk × DGW multiplier. Add --explain for per-component breakdown. No other FPL CLI exposes a captain ranker."
     },
     {
       "name": "Chip Plan",
-      "command": "livefpl chip-plan <teamId>",
+      "command": "xfpl chip-plan <teamId>",
       "description": "Cross-references a manager's remaining chips against detected Blank GWs / Double GWs in the remaining fixture list and surfaces concrete chip-usage windows."
     },
     {
       "name": "Player Lookup by Name",
-      "command": "livefpl player <name>",
+      "command": "xfpl player <name>",
       "description": "Resolve any player by case-insensitive name substring against bootstrap-static (no other CLI accepts names — they all require numeric element IDs)."
     },
     {
       "name": "Player Comparison",
-      "command": "livefpl compare <name> <name> [<name>...]",
+      "command": "xfpl compare <name> <name> [<name>...]",
       "description": "Side-by-side comparison of 2+ players (price, form, points, ownership, status) in one JSON payload — directly serves the transfer-deliberation workflow."
     }
   ]

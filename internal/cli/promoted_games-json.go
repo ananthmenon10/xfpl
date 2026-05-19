@@ -18,7 +18,7 @@ func newGamesJsonPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "games-json",
 		Short:       "Array of arrays — one per Premier League fixture in the active gameweek. Each entry: [home, away, hscore, ascore,...",
 		Long:        "Shortcut for 'games-json get-live-games'. Array of arrays — one per Premier League fixture in the active gameweek. Each entry: [home, away, hscore, ascore,...",
-		Example:     "  livefpl games-json",
+		Example:     "  xfpl games-json",
 		Annotations: map[string]string{"pp:endpoint": "games-json.get-live-games", "pp:method": "GET", "pp:path": "https://livefpl.us/api/games.json", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

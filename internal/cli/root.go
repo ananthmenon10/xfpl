@@ -12,8 +12,8 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/ananthmenon10/livefpl/internal/client"
-	"github.com/ananthmenon10/livefpl/internal/config"
+	"github.com/ananthmenon10/xfpl/internal/client"
+	"github.com/ananthmenon10/xfpl/internal/config"
 	"github.com/spf13/cobra"
 )
 
@@ -142,9 +142,9 @@ func isCobraUsageError(err error) bool {
 
 func newRootCmd(flags *rootFlags) *cobra.Command {
 	rootCmd := &cobra.Command{
-		Use:   "livefpl",
+		Use:   "xfpl",
 		Short: "Fantasy Premier League CLI — live rank, EO, threats, prices (LiveFPL + FPL API)",
-		Long: `livefpl — the only FPL CLI that knows what's actually about to happen.
+		Long: `xfpl — the only FPL CLI that knows what's actually about to happen.
 
 Combines the Fantasy Premier League official API (canonical entities) with
 LiveFPL.net's live rank, Effective Ownership, threats, and price-change data.
@@ -152,11 +152,11 @@ Read-only by design. Local SQLite cache for offline lookups. Agent-friendly:
 every command supports --json.
 
 Add --agent to any command for JSON output + non-interactive mode.
-Run 'livefpl doctor' to verify connectivity.`,
+Run 'xfpl doctor' to verify connectivity.`,
 		SilenceUsage: true,
 		Version:      version,
 	}
-	rootCmd.SetVersionTemplate("livefpl {{ .Version }}\n")
+	rootCmd.SetVersionTemplate("xfpl {{ .Version }}\n")
 
 	rootCmd.PersistentFlags().BoolVar(&flags.asJSON, "json", false, "Output as JSON")
 	rootCmd.PersistentFlags().BoolVar(&flags.compact, "compact", false, "Return only key fields (id, name, status, timestamps) for minimal token usage")
@@ -176,7 +176,7 @@ Run 'livefpl doctor' to verify connectivity.`,
 	rootCmd.PersistentFlags().BoolVar(&flags.agent, "agent", false, "Set all agent-friendly defaults (--json --compact --no-input --no-color --yes)")
 	rootCmd.PersistentFlags().BoolVar(&flags.allowPartialFailure, "allow-partial-failure", false, "Downgrade response-body partial-failure (e.g. partialFailureError) to a warning instead of a non-zero exit")
 	rootCmd.PersistentFlags().StringVar(&flags.dataSource, "data-source", "auto", "Data source for read commands: auto (live with local fallback), live (API only), local (synced data only)")
-	rootCmd.PersistentFlags().StringVar(&flags.profileName, "profile", "", "Apply values from a saved profile (see 'livefpl profile list')")
+	rootCmd.PersistentFlags().StringVar(&flags.profileName, "profile", "", "Apply values from a saved profile (see 'xfpl profile list')")
 	rootCmd.PersistentFlags().StringVar(&flags.deliverSpec, "deliver", "", "Route output to a sink: stdout (default), file:<path>, webhook:<url>")
 	rootCmd.PersistentFlags().Float64Var(&flags.rateLimit, "rate-limit", 0, "Max requests per second (0 to disable)")
 
@@ -343,7 +343,7 @@ func newVersionCliCmd() *cobra.Command {
 		Use:   "version",
 		Short: "Print version",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("livefpl %s\n", version)
+			fmt.Printf("xfpl %s\n", version)
 		},
 	}
 }

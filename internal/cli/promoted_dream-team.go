@@ -17,7 +17,7 @@ func newDreamTeamPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "dream-team <eventId>",
 		Short:       "Highest-scoring XI for a gameweek",
 		Long:        "Shortcut for 'dream-team get'. Highest-scoring XI for a gameweek",
-		Example:     "  livefpl dream-team 42",
+		Example:     "  xfpl dream-team 42",
 		Annotations: map[string]string{"pp:endpoint": "dream-team.get", "pp:method": "GET", "pp:path": "/dream-team/{eventId}/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

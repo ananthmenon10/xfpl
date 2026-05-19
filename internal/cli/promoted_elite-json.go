@@ -17,7 +17,7 @@ func newEliteJsonPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "elite-json",
 		Short:       "Aggregated picks, captaincy %, ownership, and chip usage among the top 10,000 ranked managers. ~10KB, refreshed each...",
 		Long:        "Shortcut for 'elite-json get-elite-aggregates'. Aggregated picks, captaincy %, ownership, and chip usage among the top 10,000 ranked managers. ~10KB, refreshed each...",
-		Example:     "  livefpl elite-json",
+		Example:     "  xfpl elite-json",
 		Annotations: map[string]string{"pp:endpoint": "elite-json.get-elite-aggregates", "pp:method": "GET", "pp:path": "https://livefpl.us/elite.json", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

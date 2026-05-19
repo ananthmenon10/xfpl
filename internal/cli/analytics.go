@@ -9,7 +9,7 @@ import (
 	"os"
 	"sort"
 
-	"github.com/ananthmenon10/livefpl/internal/store"
+	"github.com/ananthmenon10/xfpl/internal/store"
 	"github.com/spf13/cobra"
 )
 
@@ -26,21 +26,21 @@ func newAnalyticsCmd(flags *rootFlags) *cobra.Command {
 		Long: `Analyze locally synced data with count, group-by, and summary operations.
 Data must be synced first with the sync command.`,
 		Example: `  # Count records by type
-  livefpl analytics --type messages
+  xfpl analytics --type messages
 
   # Group by a field
-  livefpl analytics --type messages --group-by author_id
+  xfpl analytics --type messages --group-by author_id
 
   # Top 10 most frequent values
-  livefpl analytics --type messages --group-by channel_id --limit 10 --json`,
+  xfpl analytics --type messages --group-by channel_id --limit 10 --json`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if dbPath == "" {
-				dbPath = defaultDBPath("livefpl")
+				dbPath = defaultDBPath("xfpl")
 			}
 
 			db, err := store.OpenWithContext(cmd.Context(), dbPath)
 			if err != nil {
-				return fmt.Errorf("opening local database: %w\nRun 'livefpl sync' first.", err)
+				return fmt.Errorf("opening local database: %w\nRun 'xfpl sync' first.", err)
 			}
 			defer db.Close()
 

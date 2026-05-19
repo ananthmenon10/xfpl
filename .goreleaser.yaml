@@ -1,15 +1,15 @@
 version: 2
-project_name: livefpl
+project_name: xfpl
 changelog:
   disable: true
 builds:
-  - id: livefpl
-    main: ./cmd/livefpl
-    binary: livefpl
+  - id: xfpl
+    main: ./cmd/xfpl
+    binary: xfpl
     env:
       - CGO_ENABLED=0
     ldflags:
-      - -s -w -X github.com/ananthmenon10/livefpl/internal/cli.version={{ .Version }}
+      - -s -w -X github.com/ananthmenon10/xfpl/internal/cli.version={{ .Version }}
     targets:
       - darwin_amd64
       - darwin_arm64
@@ -17,9 +17,9 @@ builds:
       - linux_arm64
       - windows_amd64
       - windows_arm64
-  - id: livefpl-mcp
-    main: ./cmd/livefpl-mcp
-    binary: livefpl-mcp
+  - id: xfpl-mcp
+    main: ./cmd/xfpl-mcp
+    binary: xfpl-mcp
     env:
       - CGO_ENABLED=0
     ldflags:
@@ -40,15 +40,15 @@ archives:
 checksum:
   name_template: checksums.txt
 brews:
-  - name: livefpl
+  - name: xfpl
     repository:
       owner: ananthmenon10
-      name: homebrew-livefpl
-    homepage: "https://github.com/ananthmenon10/livefpl"
+      name: homebrew-xfpl
+    homepage: "https://github.com/ananthmenon10/xfpl"
     description: "The only FPL CLI that knows what's actually about to happen — live ranks, EO, price changes, captain ranker, chip planner."
     license: "Apache-2.0"
     install: |
-      bin.install "livefpl"
-      bin.install "livefpl-mcp"
+      bin.install "xfpl"
+      bin.install "xfpl-mcp"
     test: |
-      system "#{bin}/livefpl", "--version"
+      system "#{bin}/xfpl", "--version"

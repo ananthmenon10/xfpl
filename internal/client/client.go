@@ -21,8 +21,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ananthmenon10/livefpl/internal/cliutil"
-	"github.com/ananthmenon10/livefpl/internal/config"
+	"github.com/ananthmenon10/xfpl/internal/cliutil"
+	"github.com/ananthmenon10/xfpl/internal/config"
 )
 
 const BinaryResponseHeader = "X-Printing-Press-Binary-Response"
@@ -86,7 +86,7 @@ func newHTTPClient(timeout time.Duration, jar http.CookieJar) *http.Client {
 
 func New(cfg *config.Config, timeout time.Duration, rateLimit float64) *Client {
 	homeDir, _ := os.UserHomeDir()
-	cacheDir := filepath.Join(homeDir, ".cache", "livefpl", "http")
+	cacheDir := filepath.Join(homeDir, ".cache", "xfpl", "http")
 	httpClient := newHTTPClient(timeout, nil)
 	c := &Client{
 		BaseURL:    strings.TrimRight(cfg.BaseURL, "/"),

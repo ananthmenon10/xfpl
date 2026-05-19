@@ -1,5 +1,5 @@
 {
-  "api_name": "livefpl",
+  "api_name": "xfpl",
   "base_url": "https://fantasy.premierleague.com/api",
   "description": "Combined CLI for multiple API services",
   "mcp_ready": "full",
@@ -263,7 +263,7 @@
       ]
     },
     {
-      "name": "livefplapi_get-live-team",
+      "name": "xfplapi_get-live-team",
       "description": "THE primary LiveFPL transcendence endpoint. Returns: - GWrank: current gameweek rank - GWrank2: projected/secondary rank - a_e / a_o / a_t: average scores (entry/overall/top tiers) - arrow_*: visual rank-direction indicators - avg_similarity: how template the team is - bench, benchzz: bench points + bench element_ids - buds: similar-manager comparisons - cache: cache key - calcplayerptsd: live calculated points per element_id - and ~40 more fields Single endpoint per team; ~80KB. Public, no auth. Required: teamId.",
       "method": "GET",
       "path": "/livefplapi/{teamId}",

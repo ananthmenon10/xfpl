@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ananthmenon10/livefpl/internal/store"
+	"github.com/ananthmenon10/xfpl/internal/store"
 	"github.com/spf13/cobra"
 )
 
@@ -34,10 +34,10 @@ func newWorkflowArchiveCmd(flags *rootFlags) *cobra.Command {
 local SQLite database. Supports incremental sync (only new data since last run)
 and full resync. After archiving, use 'search' for instant full-text search.`,
 		Example: `  # Archive all resources
-  livefpl workflow archive
+  xfpl workflow archive
 
   # Full re-archive (ignore previous sync state)
-  livefpl workflow archive --full`,
+  xfpl workflow archive --full`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()
 			if err != nil {
@@ -46,7 +46,7 @@ and full resync. After archiving, use 'search' for instant full-text search.`,
 			c.NoCache = true
 
 			if dbPath == "" {
-				dbPath = defaultDBPath("livefpl")
+				dbPath = defaultDBPath("xfpl")
 			}
 			s, err := store.OpenWithContext(cmd.Context(), dbPath)
 			if err != nil {
@@ -96,7 +96,7 @@ and full resync. After archiving, use 'search' for instant full-text search.`,
 		},
 	}
 
-	cmd.Flags().StringVar(&dbPath, "db", "", "Database path (default: ~/.local/share/livefpl/data.db)")
+	cmd.Flags().StringVar(&dbPath, "db", "", "Database path (default: ~/.local/share/xfpl/data.db)")
 	cmd.Flags().BoolVar(&full, "full", false, "Full re-archive (ignore previous sync state)")
 
 	return cmd
@@ -110,13 +110,13 @@ func newWorkflowStatusCmd(flags *rootFlags) *cobra.Command {
 		Short:       "Show local archive status and sync state for all resources",
 		Annotations: map[string]string{"mcp:read-only": "true"},
 		Example: `  # Show archive status
-  livefpl workflow status
+  xfpl workflow status
 
   # Show status as JSON
-  livefpl workflow status --json`,
+  xfpl workflow status --json`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if dbPath == "" {
-				dbPath = defaultDBPath("livefpl")
+				dbPath = defaultDBPath("xfpl")
 			}
 			s, err := store.OpenWithContext(cmd.Context(), dbPath)
 			if err != nil {

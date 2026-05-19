@@ -1,4 +1,4 @@
-module github.com/ananthmenon10/livefpl
+module github.com/ananthmenon10/xfpl
 
 go 1.26.3
 

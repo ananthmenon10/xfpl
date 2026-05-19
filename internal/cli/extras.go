@@ -2,9 +2,9 @@
 //
 // Hand-authored hermes-inspired commands:
 //
-//   livefpl captains-history <teamId>  — captain picks per gameweek with points
-//   livefpl points <teamId>            — current GW points breakdown by player
-//   livefpl cup <teamId>               — FPL Cup status and match history
+//   xfpl captains-history <teamId>  — captain picks per gameweek with points
+//   xfpl points <teamId>            — current GW points breakdown by player
+//   xfpl cup <teamId>               — FPL Cup status and match history
 //
 // Each wraps multiple FPL endpoints and joins with bootstrap-static for names.
 
@@ -24,7 +24,7 @@ func newCaptainsHistoryCmd(flags *rootFlags) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "captains-history <teamId>",
 		Short:   "Captain picks per gameweek with points scored",
-		Example: "  livefpl captains-history 5505524 --limit 10",
+		Example: "  xfpl captains-history 5505524 --limit 10",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			teamID := args[0]
@@ -148,7 +148,7 @@ func newPointsCmd(flags *rootFlags) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "points <teamId>",
 		Short:   "Per-player points breakdown for a gameweek (live during play)",
-		Example: "  livefpl points 5505524\n  livefpl points 5505524 --gw 30",
+		Example: "  xfpl points 5505524\n  xfpl points 5505524 --gw 30",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			teamID := args[0]
@@ -316,7 +316,7 @@ func newCupCmd(flags *rootFlags) *cobra.Command {
 	return &cobra.Command{
 		Use:     "cup <teamId>",
 		Short:   "FPL Cup status and match history",
-		Example: "  livefpl cup 5505524",
+		Example: "  xfpl cup 5505524",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			teamID := args[0]

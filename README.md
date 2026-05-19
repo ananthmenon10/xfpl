@@ -1,8 +1,8 @@
-# livefpl — the only Fantasy Premier League CLI that knows what's actually about to happen
+# xfpl — the only Fantasy Premier League CLI that knows what's actually about to happen
 
-[![CI](https://github.com/ananthmenon10/livefpl/actions/workflows/ci.yml/badge.svg)](https://github.com/ananthmenon10/livefpl/actions/workflows/ci.yml)
+[![CI](https://github.com/ananthmenon10/xfpl/actions/workflows/ci.yml/badge.svg)](https://github.com/ananthmenon10/xfpl/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Go Reference](https://pkg.go.dev/badge/github.com/ananthmenon10/livefpl.svg)](https://pkg.go.dev/github.com/ananthmenon10/livefpl)
+[![Go Reference](https://pkg.go.dev/badge/github.com/ananthmenon10/xfpl.svg)](https://pkg.go.dev/github.com/ananthmenon10/xfpl)
 
 A read-only CLI that combines the official Fantasy Premier League API with LiveFPL.net's live rank, EO, threats, and price-change data. Agent-friendly (`--json --agent`), offline-capable (local SQLite cache), and shipped as an MCP server for Claude Desktop / Cursor / Claude Code.
 
@@ -10,54 +10,54 @@ Printed by [@ananthmenon10](https://github.com/ananthmenon10) (Ananth Menon) on 
 
 ## Highlights
 
-- **`livefpl captain --top 5 --explain`** — captain ranker scored by `ep_next × FDR × home/away × xGI/90 × minutes-risk × DGW multiplier`. No other FPL CLI exposes a captain ranker.
-- **`livefpl explain rank <teamId>`** — top 5 player contributions to the current gameweek rank for any manager.
-- **`livefpl chip-plan <teamId>`** — cross-references your remaining chips against detected Blank GWs / Double GWs in the remaining fixture list.
-- **`livefpl player <name>`** / **`livefpl compare <name> <name> ...`** — name-based player lookup and side-by-side comparison (no other CLI accepts names — they all require numeric element IDs).
-- **`livefpl captains-history <teamId>`** / **`livefpl points <teamId>`** / **`livefpl cup <teamId>`** — past captains, live GW score breakdown, and FPL Cup status.
+- **`xfpl captain --top 5 --explain`** — captain ranker scored by `ep_next × FDR × home/away × xGI/90 × minutes-risk × DGW multiplier`. No other FPL CLI exposes a captain ranker.
+- **`xfpl explain rank <teamId>`** — top 5 player contributions to the current gameweek rank for any manager.
+- **`xfpl chip-plan <teamId>`** — cross-references your remaining chips against detected Blank GWs / Double GWs in the remaining fixture list.
+- **`xfpl player <name>`** / **`xfpl compare <name> <name> ...`** — name-based player lookup and side-by-side comparison (no other CLI accepts names — they all require numeric element IDs).
+- **`xfpl captains-history <teamId>`** / **`xfpl points <teamId>`** / **`xfpl cup <teamId>`** — past captains, live GW score breakdown, and FPL Cup status.
 
 ## Install
 
 ### Recommended: `go install`
 
 ```bash
-go install github.com/ananthmenon10/livefpl/cmd/livefpl@latest
-go install github.com/ananthmenon10/livefpl/cmd/livefpl-mcp@latest
+go install github.com/ananthmenon10/xfpl/cmd/xfpl@latest
+go install github.com/ananthmenon10/xfpl/cmd/xfpl-mcp@latest
 ```
 
-Requires Go 1.26+. Ensure `$GOPATH/bin` (or `~/go/bin`) is on your `PATH`. Verify with `livefpl --version`.
+Requires Go 1.26+. Ensure `$GOPATH/bin` (or `~/go/bin`) is on your `PATH`. Verify with `xfpl --version`.
 
 ### Homebrew (after first release)
 
 ```bash
-brew install ananthmenon10/livefpl/livefpl
+brew install ananthmenon10/xfpl/xfpl
 ```
 
 ### Printing Press (CLI + agent skill in one shot)
 
-The recommended path installs both the `livefpl` binary and the `pp-livefpl` agent skill (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, and other agents supported by the upstream [`skills`](https://github.com/vercel-labs/skills) CLI) in one shot:
+The recommended path installs both the `xfpl` binary and the `pp-xfpl` agent skill (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, and other agents supported by the upstream [`skills`](https://github.com/vercel-labs/skills) CLI) in one shot:
 
 ```bash
-npx -y @mvanhorn/printing-press install livefpl
+npx -y @mvanhorn/printing-press install xfpl
 ```
 
 For CLI only (no skill):
 
 ```bash
-npx -y @mvanhorn/printing-press install livefpl --cli-only
+npx -y @mvanhorn/printing-press install xfpl --cli-only
 ```
 
 For skill only — installs the skill into the same agents as the default command above, but skips the CLI binary (use this to update or reinstall just the skill):
 
 ```bash
-npx -y @mvanhorn/printing-press install livefpl --skill-only
+npx -y @mvanhorn/printing-press install xfpl --skill-only
 ```
 
 To constrain the skill install to one or more specific agents (repeatable — agent names match the [`skills`](https://github.com/vercel-labs/skills) CLI):
 
 ```bash
-npx -y @mvanhorn/printing-press install livefpl --agent claude-code
-npx -y @mvanhorn/printing-press install livefpl --agent claude-code --agent codex
+npx -y @mvanhorn/printing-press install xfpl --agent claude-code
+npx -y @mvanhorn/printing-press install xfpl --agent claude-code --agent codex
 ```
 
 ### Without Node
@@ -66,7 +66,7 @@ The generated install path is category-agnostic until this CLI is published. If 
 
 ### Pre-built binary
 
-Download a pre-built binary for your platform from the [latest release](https://github.com/mvanhorn/printing-press-library/releases/tag/livefpl-current). On macOS, clear the Gatekeeper quarantine: `xattr -d com.apple.quarantine <binary>`. On Unix, mark it executable: `chmod +x <binary>`.
+Download a pre-built binary for your platform from the [latest release](https://github.com/mvanhorn/printing-press-library/releases/tag/xfpl-current). On macOS, clear the Gatekeeper quarantine: `xattr -d com.apple.quarantine <binary>`. On Unix, mark it executable: `chmod +x <binary>`.
 
 <!-- pp-hermes-install-anchor -->
 ## Install for Hermes
@@ -74,13 +74,13 @@ Download a pre-built binary for your platform from the [latest release](https://
 From the Hermes CLI:
 
 ```bash
-hermes skills install mvanhorn/printing-press-library/cli-skills/pp-livefpl --force
+hermes skills install mvanhorn/printing-press-library/cli-skills/pp-xfpl --force
 ```
 
 Inside a Hermes chat session:
 
 ```bash
-/skills install mvanhorn/printing-press-library/cli-skills/pp-livefpl --force
+/skills install mvanhorn/printing-press-library/cli-skills/pp-xfpl --force
 ```
 
 ## Install for OpenClaw
@@ -88,7 +88,7 @@ Inside a Hermes chat session:
 Tell your OpenClaw agent (copy this):
 
 ```
-Install the pp-livefpl skill from https://github.com/mvanhorn/printing-press-library/tree/main/cli-skills/pp-livefpl. The skill defines how its required CLI can be installed.
+Install the pp-xfpl skill from https://github.com/mvanhorn/printing-press-library/tree/main/cli-skills/pp-xfpl. The skill defines how its required CLI can be installed.
 ```
 
 ## Use with Claude Desktop
@@ -97,7 +97,7 @@ This CLI ships an [MCPB](https://github.com/modelcontextprotocol/mcpb) bundle �
 
 To install:
 
-1. Download the `.mcpb` for your platform from the [latest release](https://github.com/mvanhorn/printing-press-library/releases/tag/livefpl-current).
+1. Download the `.mcpb` for your platform from the [latest release](https://github.com/mvanhorn/printing-press-library/releases/tag/xfpl-current).
 2. Double-click the `.mcpb` file. Claude Desktop opens and walks you through the install.
 3. Fill in `FANTASY_PREMIER_LEAGUE_SESSION_COOKIE` when Claude Desktop prompts you.
 
@@ -116,8 +116,8 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 ```json
 {
   "mcpServers": {
-    "livefpl": {
-      "command": "livefpl-mcp",
+    "xfpl": {
+      "command": "xfpl-mcp",
       "env": {
         "FANTASY_PREMIER_LEAGUE_SESSION_COOKIE": "<your-key>"
       }
@@ -142,12 +142,12 @@ Get your API key from your API provider's developer portal. The key typically lo
 export FANTASY_PREMIER_LEAGUE_SESSION_COOKIE="<paste-your-key>"
 ```
 
-You can also persist this in your config file at `~/.config/livefpl/config.toml`.
+You can also persist this in your config file at `~/.config/xfpl/config.toml`.
 
 ### 3. Verify Setup
 
 ```bash
-livefpl doctor
+xfpl doctor
 ```
 
 This checks your configuration and credentials.
@@ -155,12 +155,12 @@ This checks your configuration and credentials.
 ### 4. Try Your First Command
 
 ```bash
-livefpl bootstrap-static
+xfpl bootstrap-static
 ```
 
 ## Usage
 
-Run `livefpl --help` for the full command reference and flag list.
+Run `xfpl --help` for the full command reference and flag list.
 
 ## Commands
 
@@ -168,33 +168,33 @@ Run `livefpl --help` for the full command reference and flag list.
 
 Manage bootstrap static
 
-- **`livefpl bootstrap-static`** - ~1.5MB. The single most important read in the FPL API. Loaded once
+- **`xfpl bootstrap-static`** - ~1.5MB. The single most important read in the FPL API. Loaded once
 and cached locally for all entity lookups.
 
 ### dream-team
 
 Manage dream team
 
-- **`livefpl dream-team <eventId>`** - Highest-scoring XI for a gameweek
+- **`xfpl dream-team <eventId>`** - Highest-scoring XI for a gameweek
 
 ### element-summary
 
 Manage element summary
 
-- **`livefpl element-summary <elementId>`** - Per-player detail (history + upcoming fixtures)
+- **`xfpl element-summary <elementId>`** - Per-player detail (history + upcoming fixtures)
 
 ### elite-json
 
 Manage elite json
 
-- **`livefpl elite-json`** - Aggregated picks, captaincy %, ownership, and chip usage among the
+- **`xfpl elite-json`** - Aggregated picks, captaincy %, ownership, and chip usage among the
 top 10,000 ranked managers. ~10KB, refreshed each gameweek.
 
 ### entry
 
 Manage entry
 
-- **`livefpl entry <managerId>`** - Manager profile (name, country, leagues, summary score)
+- **`xfpl entry <managerId>`** - Manager profile (name, country, leagues, summary score)
 
 ### event
 
@@ -205,19 +205,19 @@ Manage event
 
 Manage event status
 
-- **`livefpl event-status`** - Bonus and league update status across active GW
+- **`xfpl event-status`** - Bonus and league update status across active GW
 
 ### fixtures
 
 Manage fixtures
 
-- **`livefpl fixtures`** - All season fixtures (optionally filtered by event)
+- **`xfpl fixtures`** - All season fixtures (optionally filtered by event)
 
 ### games-json
 
 Manage games json
 
-- **`livefpl games-json`** - Array of arrays — one per Premier League fixture in the active gameweek.
+- **`xfpl games-json`** - Array of arrays — one per Premier League fixture in the active gameweek.
 Each entry: [home, away, hscore, ascore, status, source, h_scorers,
 h_assists, a_scorers, a_assists, bps_top, ..., per-player live entries
 with BPS, minutes, clean sheets, bonus]. Update frequency: ~1-2 min
@@ -232,13 +232,13 @@ Manage leagues classic
 
 Manage leagues h2h matches
 
-- **`livefpl leagues-h2h-matches <leagueId>`** - H2H league matches
+- **`xfpl leagues-h2h-matches <leagueId>`** - H2H league matches
 
 ### lh-api2
 
 Manage lh api2
 
-- **`livefpl lh-api2`** - Returns FT, bank, chips_available, base_gw, eleven, picks, benches,
+- **`xfpl lh-api2`** - Returns FT, bank, chips_available, base_gw, eleven, picks, benches,
 bought_values per element_id, manager_name, original picks (start of
 GW), epicks (effective picks after auto-subs). Used by LiveFPL's
 transfer planner UI.
@@ -247,7 +247,7 @@ transfer planner UI.
 
 Manage livefplapi
 
-- **`livefpl livefplapi <teamId>`** - THE primary LiveFPL transcendence endpoint. Returns:
+- **`xfpl livefplapi <teamId>`** - THE primary LiveFPL transcendence endpoint. Returns:
 - GWrank: current gameweek rank
 - GWrank2: projected/secondary rank
 - a_e / a_o / a_t: average scores (entry/overall/top tiers)
@@ -264,20 +264,20 @@ Single endpoint per team; ~80KB. Public, no auth.
 
 Manage locals league id json
 
-- **`livefpl locals-league-id-json <leagueId>`** - Available for indexed (popular) leagues; small leagues 404 here and
+- **`xfpl locals-league-id-json <leagueId>`** - Available for indexed (popular) leagues; small leagues 404 here and
 must use the dynamic livefplapi path on www.livefpl.net.
 
 ### me
 
 Manage me
 
-- **`livefpl me`** - Authenticated user's own profile
+- **`xfpl me`** - Authenticated user's own profile
 
 ### my-team
 
 Manage my team
 
-- **`livefpl my-team <managerId>`** - Requires a session cookie from a logged-in fantasy.premierleague.com
+- **`xfpl my-team <managerId>`** - Requires a session cookie from a logged-in fantasy.premierleague.com
 session. Opt-in only; we surface this behind a `--with-auth` flag and
 an env var (PP_FPL_SESSION_COOKIE) so accidental agent loops cannot
 trigger it.
@@ -286,7 +286,7 @@ trigger it.
 
 Manage prices json
 
-- **`livefpl prices-json`** - Dict keyed by FPL element_id. Each value: {name, team, type (GK/DEF/MID/FWD),
+- **`xfpl prices-json`** - Dict keyed by FPL element_id. Each value: {name, team, type (GK/DEF/MID/FWD),
 type_code, team_code, cost, progress, progress_tonight, per_hour}.
 Used by LiveFPL's price-change predictor.
 
@@ -294,13 +294,13 @@ Used by LiveFPL's price-change predictor.
 
 Manage team
 
-- **`livefpl team`** - Set-piece taker notes per club
+- **`xfpl team`** - Set-piece taker notes per club
 
 ### top-transfers-json
 
 Manage top transfers json
 
-- **`livefpl top-transfers-json`** - Array of [out_player_id, in_player_id, count_million, pct_share].
+- **`xfpl top-transfers-json`** - Array of [out_player_id, in_player_id, count_million, pct_share].
 Sorted descending by volume. Updated every few minutes during
 transfer windows.
 
@@ -308,7 +308,7 @@ transfer windows.
 
 Manage version json
 
-- **`livefpl version-json`** - Returns {gen, version, meter, store, league}. `gen` increments every
+- **`xfpl version-json`** - Returns {gen, version, meter, store, league}. `gen` increments every
 time LiveFPL's backend re-aggregates; clients use it as a cache key.
 
 
@@ -316,19 +316,19 @@ time LiveFPL's backend re-aggregates; clients use it as a cache key.
 
 ```bash
 # Human-readable table (default in terminal, JSON when piped)
-livefpl bootstrap-static
+xfpl bootstrap-static
 
 # JSON for scripting and agents
-livefpl bootstrap-static --json
+xfpl bootstrap-static --json
 
 # Filter to specific fields
-livefpl bootstrap-static --json --select id,name,status
+xfpl bootstrap-static --json --select id,name,status
 
 # Dry run — show the request without sending
-livefpl bootstrap-static --dry-run
+xfpl bootstrap-static --dry-run
 
 # Agent mode — JSON + compact + no prompts in one flag
-livefpl bootstrap-static --agent
+xfpl bootstrap-static --agent
 ```
 
 ## Agent Usage
@@ -348,14 +348,14 @@ Exit codes: `0` success, `2` usage error, `3` not found, `4` auth error, `5` API
 ## Health Check
 
 ```bash
-livefpl doctor
+xfpl doctor
 ```
 
 Verifies configuration, credentials, and connectivity to the API.
 
 ## Configuration
 
-Config file: `~/.config/livefpl/config.toml`
+Config file: `~/.config/xfpl/config.toml`
 
 Static request headers can be configured under `headers`; per-command header overrides take precedence.
 
@@ -367,7 +367,7 @@ Environment variables:
 
 ## Troubleshooting
 **Authentication errors (exit code 4)**
-- Run `livefpl doctor` to check credentials
+- Run `xfpl doctor` to check credentials
 - Verify the environment variable is set: `echo $FANTASY_PREMIER_LEAGUE_SESSION_COOKIE`
 **Not found errors (exit code 3)**
 - Check the resource ID is correct

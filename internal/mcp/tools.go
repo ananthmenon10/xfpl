@@ -13,12 +13,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ananthmenon10/livefpl/internal/cli"
-	"github.com/ananthmenon10/livefpl/internal/client"
-	"github.com/ananthmenon10/livefpl/internal/cliutil"
-	"github.com/ananthmenon10/livefpl/internal/config"
-	"github.com/ananthmenon10/livefpl/internal/mcp/cobratree"
-	"github.com/ananthmenon10/livefpl/internal/store"
+	"github.com/ananthmenon10/xfpl/internal/cli"
+	"github.com/ananthmenon10/xfpl/internal/client"
+	"github.com/ananthmenon10/xfpl/internal/cliutil"
+	"github.com/ananthmenon10/xfpl/internal/config"
+	"github.com/ananthmenon10/xfpl/internal/mcp/cobratree"
+	"github.com/ananthmenon10/xfpl/internal/store"
 	mcplib "github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 )
@@ -177,7 +177,7 @@ func RegisterTools(s *server.MCPServer) {
 		makeAPIHandler("GET", "https://livefpl-api-489391001748.europe-west4.run.app/LH_api2/planner/snapshot", false, []mcpParamBinding{{PublicName: "id", WireName: "id", Location: "query"}}, []string{}),
 	)
 	s.AddTool(
-		mcplib.NewTool("livefplapi_get-live-team",
+		mcplib.NewTool("xfplapi_get-live-team",
 			mcplib.WithDescription("THE primary LiveFPL transcendence endpoint. Returns: - GWrank: current gameweek rank - GWrank2: projected/secondary rank - a_e / a_o / a_t: average scores (entry/overall/top tiers) - arrow_*: visual rank-direction indicators - avg_similarity: how template the team is - bench, benchzz: bench points + bench element_ids - buds: similar-manager comparisons - cache: cache key - calcplayerptsd: live calculated points per element_id - and ~40 more fields Single endpoint per team; ~80KB. Public, no auth. Required: teamId."),
 			mcplib.WithNumber("teamId", mcplib.Required(), mcplib.Description("Team id")),
 			mcplib.WithReadOnlyHintAnnotation(true),
@@ -394,17 +394,17 @@ func makeAPIHandler(method, pathTemplate string, binaryResponse bool, bindings [
 				return mcplib.NewToolResultError("authentication error: " + cliutil.SanitizeErrorBody(msg) +
 					"\nhint: the API rejected the request — this usually means auth is missing or invalid." +
 					"\n      Set your API key: export FANTASY_PREMIER_LEAGUE_SESSION_COOKIE=<your-key>" +
-					"\n      Run 'livefpl doctor' to check auth status."), nil
+					"\n      Run 'xfpl doctor' to check auth status."), nil
 			case strings.Contains(msg, "HTTP 401"):
 				return mcplib.NewToolResultError("authentication failed: " + cliutil.SanitizeErrorBody(msg) +
 					"\nhint: check your API key." +
 					"\n      Set it with: export FANTASY_PREMIER_LEAGUE_SESSION_COOKIE=<your-key>" +
-					"\n      Run 'livefpl doctor' to check auth status."), nil
+					"\n      Run 'xfpl doctor' to check auth status."), nil
 			case strings.Contains(msg, "HTTP 403"):
 				return mcplib.NewToolResultError("permission denied: " + cliutil.SanitizeErrorBody(msg) +
 					"\nhint: your credentials are valid but lack access to this resource." +
 					"\n      Set it with: export FANTASY_PREMIER_LEAGUE_SESSION_COOKIE=<your-key>" +
-					"\n      Run 'livefpl doctor' to check auth status."), nil
+					"\n      Run 'xfpl doctor' to check auth status."), nil
 			case strings.Contains(msg, "HTTP 404"):
 				if method == "DELETE" {
 					return mcplib.NewToolResultText("already deleted (no-op)"), nil
@@ -446,7 +446,7 @@ func makeAPIHandler(method, pathTemplate string, binaryResponse bool, bindings [
 
 func newMCPClient() (*client.Client, error) {
 	home, _ := os.UserHomeDir()
-	cfgPath := filepath.Join(home, ".config", "livefpl", "config.toml")
+	cfgPath := filepath.Join(home, ".config", "xfpl", "config.toml")
 	cfg, err := config.Load(cfgPath)
 	if err != nil {
 		return nil, fmt.Errorf("loading config: %w", err)
@@ -463,7 +463,7 @@ func newMCPClient() (*client.Client, error) {
 
 func dbPath() string {
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".local", "share", "livefpl", "data.db")
+	return filepath.Join(home, ".local", "share", "xfpl", "data.db")
 }
 
 // Note: MCP tools use their own dbPath() because they are in a separate package (main, not cli).
@@ -568,12 +568,12 @@ func handleSQL(ctx context.Context, req mcplib.CallToolRequest) (*mcplib.CallToo
 
 func handleContext(_ context.Context, _ mcplib.CallToolRequest) (*mcplib.CallToolResult, error) {
 	ctx := map[string]any{
-		"api":         "livefpl",
+		"api":         "xfpl",
 		"description": "Combined CLI for multiple API services",
 		"archetype":   "payments",
 		"tool_count":  23,
 		// tool_surface tells agents which surface a capability lives on.
-		"tool_surface": "MCP exposes typed endpoint tools plus a runtime mirror of user-facing CLI commands. Endpoint tools keep typed schemas; command-mirror tools shell out to the companion livefpl binary.",
+		"tool_surface": "MCP exposes typed endpoint tools plus a runtime mirror of user-facing CLI commands. Endpoint tools keep typed schemas; command-mirror tools shell out to the companion xfpl binary.",
 		"auth": map[string]any{
 			"type":     "api_key",
 			"env_vars": []map[string]any{},

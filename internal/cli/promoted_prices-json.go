@@ -17,7 +17,7 @@ func newPricesJsonPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "prices-json",
 		Short:       "Dict keyed by FPL element_id. Each value: {name, team, type (GK/DEF/MID/FWD), type_code, team_code, cost, progress,...",
 		Long:        "Shortcut for 'prices-json get-prices'. Dict keyed by FPL element_id. Each value: {name, team, type (GK/DEF/MID/FWD), type_code, team_code, cost, progress,...",
-		Example:     "  livefpl prices-json",
+		Example:     "  xfpl prices-json",
 		Annotations: map[string]string{"pp:endpoint": "prices-json.get-prices", "pp:method": "GET", "pp:path": "https://livefpl.us/api/prices.json", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

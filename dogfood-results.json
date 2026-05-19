@@ -1,5 +1,5 @@
 {
-  "dir": "\u003ccli-dir\u003e/livefpl-pp-cli",
+  "dir": "\u003ccli-dir\u003e/xfpl-pp-cli",
   "spec_path": "\u003crunstate\u003e/fpl-official-spec.yaml",
   "verdict": "WARN",
   "path_check": {

@@ -5,7 +5,7 @@ package cli
 
 import (
 	"fmt"
-	"github.com/ananthmenon10/livefpl/internal/config"
+	"github.com/ananthmenon10/xfpl/internal/config"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -33,13 +33,13 @@ func newAuthSetupCmd(_ *rootFlags) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "setup",
 		Short:   "Print steps for obtaining a credential (use --launch to open the URL)",
-		Example: "  livefpl auth setup\n  livefpl auth setup --launch",
+		Example: "  xfpl auth setup\n  xfpl auth setup --launch",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			w := cmd.OutOrStdout()
 			fmt.Fprintln(w, "No setup URL is configured for this CLI; check the API's docs.")
 			fmt.Fprintln(w, "")
 			fmt.Fprintln(w, "Then set:")
-			fmt.Fprintln(w, "  livefpl auth set-token <token>")
+			fmt.Fprintln(w, "  xfpl auth set-token <token>")
 			if !launch {
 				return nil
 			}
@@ -55,7 +55,7 @@ func newAuthStatusCmd(flags *rootFlags) *cobra.Command {
 	return &cobra.Command{
 		Use:     "status",
 		Short:   "Show authentication status",
-		Example: "  livefpl auth status",
+		Example: "  xfpl auth status",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cfg, err := config.Load(flags.configPath)
 			if err != nil {
@@ -87,7 +87,7 @@ func newAuthStatusCmd(flags *rootFlags) *cobra.Command {
 				fmt.Fprintln(w, red("Not authenticated"))
 				fmt.Fprintln(w, "")
 				fmt.Fprintln(w, "Set your token:")
-				fmt.Fprintf(w, "  livefpl auth set-token <token>\n")
+				fmt.Fprintf(w, "  xfpl auth set-token <token>\n")
 				return authErr(fmt.Errorf("no credentials configured"))
 			}
 
@@ -103,7 +103,7 @@ func newAuthSetTokenCmd(flags *rootFlags) *cobra.Command {
 	return &cobra.Command{
 		Use:     "set-token <token>",
 		Short:   "Save an API token to the config file",
-		Example: "  livefpl auth set-token YOUR_TOKEN_HERE",
+		Example: "  xfpl auth set-token YOUR_TOKEN_HERE",
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cfg, err := config.Load(flags.configPath)
@@ -143,7 +143,7 @@ func newAuthLogoutCmd(flags *rootFlags) *cobra.Command {
 	return &cobra.Command{
 		Use:     "logout",
 		Short:   "Clear stored credentials",
-		Example: "  livefpl auth logout",
+		Example: "  xfpl auth logout",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cfg, err := config.Load(flags.configPath)
 			if err != nil {

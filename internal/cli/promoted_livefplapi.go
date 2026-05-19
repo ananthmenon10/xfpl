@@ -17,7 +17,7 @@ func newLivefplapiPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "livefplapi <teamId>",
 		Short:       "THE primary LiveFPL transcendence endpoint. Returns: - GWrank: current gameweek rank - GWrank2: projected/secondary...",
 		Long:        "Shortcut for 'livefplapi get-live-team'. THE primary LiveFPL transcendence endpoint. Returns: - GWrank: current gameweek rank - GWrank2: projected/secondary...",
-		Example:     "  livefpl livefplapi 42",
+		Example:     "  xfpl livefplapi 42",
 		Annotations: map[string]string{"pp:endpoint": "livefplapi.get-live-team", "pp:method": "GET", "pp:path": "https://www.livefpl.net/livefplapi/{teamId}", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # HOMEBREW_TAP_GITHUB_TOKEN is a fine-grained PAT scoped to
-          # ananthmenon10/homebrew-livefpl with contents:write. Set it in the
+          # ananthmenon10/homebrew-xfpl with contents:write. Set it in the
           # repo Secrets tab before pushing the first v* tag, or comment out
           # the brews: block in .goreleaser.yaml.
           HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}

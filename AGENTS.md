@@ -1,34 +1,34 @@
 # Livefpl Printed CLI Agent Guide
 
-This directory is a generated `livefpl` printed CLI. It was produced by [CLI Printing Press](https://github.com/mvanhorn/cli-printing-press), so treat systemic fixes as upstream Printing Press fixes first. Keep local edits narrow and document why a generated-tree patch belongs here.
+This directory is a generated `xfpl` printed CLI. It was produced by [CLI Printing Press](https://github.com/mvanhorn/cli-printing-press), so treat systemic fixes as upstream Printing Press fixes first. Keep local edits narrow and document why a generated-tree patch belongs here.
 
 ## Local Operating Contract
 
 Start by asking the generated CLI for current runtime truth:
 
 ```bash
-livefpl doctor --json
-livefpl agent-context --pretty
+xfpl doctor --json
+xfpl agent-context --pretty
 ```
 
 Use runtime discovery instead of relying on a copied command list:
 
 ```bash
-livefpl which "<capability>" --json
-livefpl <command> --help
+xfpl which "<capability>" --json
+xfpl <command> --help
 ```
 
 Add `--agent` to command invocations for JSON, compact output, non-interactive defaults, no color, and confirmation-safe scripting:
 
 ```bash
-livefpl <command> --agent
+xfpl <command> --agent
 ```
 
 Before running an unfamiliar command that may mutate remote state, inspect its help and prefer a dry run:
 
 ```bash
-livefpl <command> --help
-livefpl <command> --dry-run --agent
+xfpl <command> --help
+xfpl <command> --dry-run --agent
 ```
 
 Use `--yes --no-input` only after the target, arguments, and side effects are clear.

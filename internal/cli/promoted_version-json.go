@@ -17,7 +17,7 @@ func newVersionJsonPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "version-json",
 		Short:       "Returns {gen, version, meter, store, league}. `gen` increments every time LiveFPL's backend re-aggregates; clients...",
 		Long:        "Shortcut for 'version-json get-version'. Returns {gen, version, meter, store, league}. `gen` increments every time LiveFPL's backend re-aggregates; clients...",
-		Example:     "  livefpl version-json",
+		Example:     "  xfpl version-json",
 		Annotations: map[string]string{"pp:endpoint": "version-json.get-version", "pp:method": "GET", "pp:path": "https://livefpl.us/version.json", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

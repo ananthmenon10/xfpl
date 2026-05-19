@@ -17,7 +17,7 @@ func newBootstrapStaticPromotedCmd(flags *rootFlags) *cobra.Command {
 		Use:         "bootstrap-static",
 		Short:       "~1.5MB. The single most important read in the FPL API. Loaded once and cached locally for all entity lookups.",
 		Long:        "Shortcut for 'bootstrap-static get'. ~1.5MB. The single most important read in the FPL API. Loaded once and cached locally for all entity lookups.",
-		Example:     "  livefpl bootstrap-static",
+		Example:     "  xfpl bootstrap-static",
 		Annotations: map[string]string{"pp:endpoint": "bootstrap-static.get", "pp:method": "GET", "pp:path": "/bootstrap-static/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()

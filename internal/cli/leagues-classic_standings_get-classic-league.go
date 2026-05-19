@@ -19,7 +19,7 @@ func newLeaguesClassicStandingsGetClassicLeagueCmd(flags *rootFlags) *cobra.Comm
 		Use:         "get-classic-league <leagueId>",
 		Aliases:     []string{"get"},
 		Short:       "Classic league standings (paginated)",
-		Example:     "  livefpl leagues-classic standings get-classic-league 42",
+		Example:     "  xfpl leagues-classic standings get-classic-league 42",
 		Annotations: map[string]string{"pp:endpoint": "standings.get-classic-league", "pp:method": "GET", "pp:path": "/leagues-classic/{leagueId}/standings/", "mcp:read-only": "true"},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 {

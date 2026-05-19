@@ -1,5 +1,5 @@
 {
-  "name": "livefpl",
+  "name": "xfpl",
   "description": "Combined CLI for multiple API services",
   "version": "1.0.0",
   "base_url": "https://fantasy.premierleague.com/api",
@@ -31,7 +31,7 @@
   },
   "config": {
     "format": "toml",
-    "path": "~/.config/livefpl/config.toml"
+    "path": "~/.config/xfpl/config.toml"
   },
   "resources": {
     "bootstrap-static": {

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26'
+          cache: true
+
+      - name: Verify formatting
+        run: |
+          gofmt -l . | tee /tmp/gofmt-out
+          test ! -s /tmp/gofmt-out
+
+      - name: Run go vet
+        run: go vet ./...
+
+      - name: Run tests
+        run: go test -race -count=1 ./...
+
+      - name: Build binaries
+        run: |
+          go build -o livefpl ./cmd/livefpl
+          go build -o livefpl-mcp ./cmd/livefpl-mcp
+          ./livefpl --version
+          test -x ./livefpl-mcp

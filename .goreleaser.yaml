@@ -1,0 +1,54 @@
+version: 2
+project_name: livefpl
+changelog:
+  disable: true
+builds:
+  - id: livefpl
+    main: ./cmd/livefpl
+    binary: livefpl
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X github.com/ananthmenon10/livefpl/internal/cli.version={{ .Version }}
+    targets:
+      - darwin_amd64
+      - darwin_arm64
+      - linux_amd64
+      - linux_arm64
+      - windows_amd64
+      - windows_arm64
+  - id: livefpl-mcp
+    main: ./cmd/livefpl-mcp
+    binary: livefpl-mcp
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w
+    targets:
+      - darwin_amd64
+      - darwin_arm64
+      - linux_amd64
+      - linux_arm64
+      - windows_amd64
+      - windows_arm64
+archives:
+  - formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+checksum:
+  name_template: checksums.txt
+brews:
+  - name: livefpl
+    repository:
+      owner: ananthmenon10
+      name: homebrew-livefpl
+    homepage: "https://github.com/ananthmenon10/livefpl"
+    description: "The only FPL CLI that knows what's actually about to happen — live ranks, EO, price changes, captain ranker, chip planner."
+    license: "Apache-2.0"
+    install: |
+      bin.install "livefpl"
+      bin.install "livefpl-mcp"
+    test: |
+      system "#{bin}/livefpl", "--version"

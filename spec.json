@@ -1,0 +1,682 @@
+{
+  "name": "livefpl",
+  "description": "Combined CLI for multiple API services",
+  "version": "1.0.0",
+  "base_url": "https://fantasy.premierleague.com/api",
+  "owner": "ananth-menon",
+  "owner_name": "Ananth Menon",
+  "printer": "ananthmenon10",
+  "printer_name": "Ananth Menon",
+  "spec_source": "community",
+  "health_check_path": "/me/",
+  "auth": {
+    "type": "api_key",
+    "header": "sessionid",
+    "format": "",
+    "env_vars": [
+      "FANTASY_PREMIER_LEAGUE_SESSION_COOKIE"
+    ],
+    "env_var_specs": [
+      {
+        "name": "FANTASY_PREMIER_LEAGUE_SESSION_COOKIE",
+        "kind": "harvested",
+        "required": true,
+        "sensitive": true,
+        "inferred": true
+      }
+    ],
+    "scheme": "sessionCookie",
+    "in": "cookie",
+    "verify_path": "/me/"
+  },
+  "config": {
+    "format": "toml",
+    "path": "~/.config/livefpl/config.toml"
+  },
+  "resources": {
+    "bootstrap-static": {
+      "description": "Manage bootstrap static",
+      "endpoints": {
+        "get": {
+          "method": "GET",
+          "path": "/bootstrap-static/",
+          "description": "~1.5MB. The single most important read in the FPL API. Loaded once\nand cached locally for all entity lookups.",
+          "params": [],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "dream-team": {
+      "description": "Manage dream team",
+      "endpoints": {
+        "get": {
+          "method": "GET",
+          "path": "/dream-team/{eventId}/",
+          "description": "Highest-scoring XI for a gameweek",
+          "params": [
+            {
+              "name": "eventId",
+              "type": "int",
+              "required": true,
+              "positional": true,
+              "path_param": true,
+              "default": null,
+              "description": "Event id",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "element-summary": {
+      "description": "Manage element summary",
+      "endpoints": {
+        "get": {
+          "method": "GET",
+          "path": "/element-summary/{elementId}/",
+          "description": "Per-player detail (history + upcoming fixtures)",
+          "params": [
+            {
+              "name": "elementId",
+              "type": "int",
+              "required": true,
+              "positional": true,
+              "path_param": true,
+              "default": null,
+              "description": "Element id",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "elite-json": {
+      "description": "Manage elite json",
+      "base_url": "https://livefpl.us",
+      "endpoints": {
+        "get-elite-aggregates": {
+          "method": "GET",
+          "path": "/elite.json",
+          "description": "Aggregated picks, captaincy %, ownership, and chip usage among the\ntop 10,000 ranked managers. ~10KB, refreshed each gameweek.",
+          "params": [],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "entry": {
+      "description": "Manage entry",
+      "endpoints": {
+        "get": {
+          "method": "GET",
+          "path": "/entry/{managerId}/",
+          "description": "Manager profile (name, country, leagues, summary score)",
+          "params": [
+            {
+              "name": "managerId",
+              "type": "int",
+              "required": true,
+              "positional": true,
+              "path_param": true,
+              "default": null,
+              "description": "Manager id",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      },
+      "sub_resources": {
+        "event": {
+          "description": "Manage event",
+          "endpoints": {
+            "get-entry-picks": {
+              "method": "GET",
+              "path": "/entry/{managerId}/event/{eventId}/picks/",
+              "description": "Manager picks for a specific gameweek",
+              "params": [
+                {
+                  "name": "managerId",
+                  "type": "int",
+                  "required": true,
+                  "positional": true,
+                  "path_param": true,
+                  "default": null,
+                  "description": "Manager id",
+                  "fields": null
+                },
+                {
+                  "name": "eventId",
+                  "type": "int",
+                  "required": true,
+                  "positional": true,
+                  "path_param": true,
+                  "default": null,
+                  "description": "Event id",
+                  "fields": null
+                }
+              ],
+              "body": [],
+              "response": {
+                "type": "",
+                "item": ""
+              },
+              "pagination": null,
+              "no_auth": true
+            }
+          }
+        },
+        "history": {
+          "description": "Manage history",
+          "endpoints": {
+            "get-entry": {
+              "method": "GET",
+              "path": "/entry/{managerId}/history/",
+              "description": "Manager history (per-GW score, past seasons, chips)",
+              "params": [
+                {
+                  "name": "managerId",
+                  "type": "int",
+                  "required": true,
+                  "positional": true,
+                  "path_param": true,
+                  "default": null,
+                  "description": "Manager id",
+                  "fields": null
+                }
+              ],
+              "body": [],
+              "response": {
+                "type": "",
+                "item": ""
+              },
+              "pagination": null,
+              "no_auth": true
+            }
+          }
+        },
+        "transfers": {
+          "description": "Manage transfers",
+          "endpoints": {
+            "get-entry": {
+              "method": "GET",
+              "path": "/entry/{managerId}/transfers/",
+              "description": "Manager transfers (all transfers this season)",
+              "params": [
+                {
+                  "name": "managerId",
+                  "type": "int",
+                  "required": true,
+                  "positional": true,
+                  "path_param": true,
+                  "default": null,
+                  "description": "Manager id",
+                  "fields": null
+                }
+              ],
+              "body": [],
+              "response": {
+                "type": "",
+                "item": ""
+              },
+              "pagination": null,
+              "no_auth": true
+            }
+          }
+        }
+      }
+    },
+    "event": {
+      "description": "Manage event",
+      "endpoints": {},
+      "sub_resources": {
+        "live": {
+          "description": "Manage live",
+          "endpoints": {
+            "get-event": {
+              "method": "GET",
+              "path": "/event/{eventId}/live/",
+              "description": "Live gameweek stats (per-player points and explain breakdown)",
+              "params": [
+                {
+                  "name": "eventId",
+                  "type": "int",
+                  "required": true,
+                  "positional": true,
+                  "path_param": true,
+                  "default": null,
+                  "description": "Event id",
+                  "fields": null
+                }
+              ],
+              "body": [],
+              "response": {
+                "type": "",
+                "item": ""
+              },
+              "pagination": null,
+              "no_auth": true
+            }
+          }
+        }
+      }
+    },
+    "event-status": {
+      "description": "Manage event status",
+      "endpoints": {
+        "get": {
+          "method": "GET",
+          "path": "/event-status/",
+          "description": "Bonus and league update status across active GW",
+          "params": [],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "fixtures": {
+      "description": "Manage fixtures",
+      "endpoints": {
+        "get": {
+          "method": "GET",
+          "path": "/fixtures/",
+          "description": "All season fixtures (optionally filtered by event)",
+          "params": [
+            {
+              "name": "event",
+              "type": "int",
+              "required": false,
+              "positional": false,
+              "default": null,
+              "description": "Event",
+              "fields": null
+            },
+            {
+              "name": "future",
+              "type": "int",
+              "required": false,
+              "positional": false,
+              "default": null,
+              "description": "Future",
+              "fields": null,
+              "enum": [
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "games-json": {
+      "description": "Manage games json",
+      "base_url": "https://livefpl.us",
+      "endpoints": {
+        "get-live-games": {
+          "method": "GET",
+          "path": "/api/games.json",
+          "description": "Array of arrays — one per Premier League fixture in the active gameweek.\nEach entry: [home, away, hscore, ascore, status, source, h_scorers,\nh_assists, a_scorers, a_assists, bps_top, ..., per-player live entries\nwith BPS, minutes, clean sheets, bonus]. Update frequency: ~1-2 min\nduring live matches.",
+          "params": [
+            {
+              "name": "_",
+              "type": "string",
+              "required": false,
+              "positional": false,
+              "default": null,
+              "description": "Cache-busting epoch timestamp",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "leagues-classic": {
+      "description": "Manage leagues classic",
+      "endpoints": {},
+      "sub_resources": {
+        "standings": {
+          "description": "Manage standings",
+          "endpoints": {
+            "get-classic-league": {
+              "method": "GET",
+              "path": "/leagues-classic/{leagueId}/standings/",
+              "description": "Classic league standings (paginated)",
+              "params": [
+                {
+                  "name": "leagueId",
+                  "type": "int",
+                  "required": true,
+                  "positional": true,
+                  "path_param": true,
+                  "default": null,
+                  "description": "League id",
+                  "fields": null
+                },
+                {
+                  "name": "page_standings",
+                  "type": "int",
+                  "required": false,
+                  "positional": false,
+                  "default": null,
+                  "description": "Page standings",
+                  "fields": null
+                },
+                {
+                  "name": "page_new_entries",
+                  "type": "int",
+                  "required": false,
+                  "positional": false,
+                  "default": null,
+                  "description": "Page new entries",
+                  "fields": null
+                }
+              ],
+              "body": [],
+              "response": {
+                "type": "",
+                "item": ""
+              },
+              "pagination": null,
+              "no_auth": true
+            }
+          }
+        }
+      }
+    },
+    "leagues-h2h-matches": {
+      "description": "Manage leagues h2h matches",
+      "endpoints": {
+        "get-h2h-league-matches": {
+          "method": "GET",
+          "path": "/leagues-h2h-matches/league/{leagueId}/",
+          "description": "H2H league matches",
+          "params": [
+            {
+              "name": "leagueId",
+              "type": "int",
+              "required": true,
+              "positional": true,
+              "path_param": true,
+              "default": null,
+              "description": "League id",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "lh-api2": {
+      "description": "Manage lh api2",
+      "base_url": "https://livefpl.us",
+      "endpoints": {
+        "get-planner-snapshot": {
+          "method": "GET",
+          "path": "/LH_api2/planner/snapshot",
+          "base_url": "https://livefpl-api-489391001748.europe-west4.run.app",
+          "description": "Returns FT, bank, chips_available, base_gw, eleven, picks, benches,\nbought_values per element_id, manager_name, original picks (start of\nGW), epicks (effective picks after auto-subs). Used by LiveFPL's\ntransfer planner UI.",
+          "params": [
+            {
+              "name": "id",
+              "type": "int",
+              "required": true,
+              "positional": false,
+              "default": null,
+              "description": "Id",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "livefplapi": {
+      "description": "Manage livefplapi",
+      "base_url": "https://livefpl.us",
+      "endpoints": {
+        "get-live-team": {
+          "method": "GET",
+          "path": "/livefplapi/{teamId}",
+          "base_url": "https://www.livefpl.net",
+          "description": "THE primary LiveFPL transcendence endpoint. Returns:\n- GWrank: current gameweek rank\n- GWrank2: projected/secondary rank\n- a_e / a_o / a_t: average scores (entry/overall/top tiers)\n- arrow_*: visual rank-direction indicators\n- avg_similarity: how template the team is\n- bench, benchzz: bench points + bench element_ids\n- buds: similar-manager comparisons\n- cache: cache key\n- calcplayerptsd: live calculated points per element_id\n- and ~40 more fields\nSingle endpoint per team; ~80KB. Public, no auth.",
+          "params": [
+            {
+              "name": "teamId",
+              "type": "int",
+              "required": true,
+              "positional": true,
+              "path_param": true,
+              "default": null,
+              "description": "Team id",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "locals-league-id-json": {
+      "description": "Manage locals league id json",
+      "base_url": "https://livefpl.us",
+      "endpoints": {
+        "get-league-locals-snapshot": {
+          "method": "GET",
+          "path": "/locals_{leagueId}.json",
+          "description": "Available for indexed (popular) leagues; small leagues 404 here and\nmust use the dynamic livefplapi path on www.livefpl.net.",
+          "params": [
+            {
+              "name": "leagueId",
+              "type": "int",
+              "required": true,
+              "positional": true,
+              "path_param": true,
+              "default": null,
+              "description": "League id",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "me": {
+      "description": "Manage me",
+      "endpoints": {
+        "get": {
+          "method": "GET",
+          "path": "/me/",
+          "description": "Authenticated user's own profile",
+          "params": [],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null
+        }
+      }
+    },
+    "my-team": {
+      "description": "Manage my team",
+      "endpoints": {
+        "get": {
+          "method": "GET",
+          "path": "/my-team/{managerId}/",
+          "description": "Requires a session cookie from a logged-in fantasy.premierleague.com\nsession. Opt-in only; we surface this behind a `--with-auth` flag and\nan env var (PP_FPL_SESSION_COOKIE) so accidental agent loops cannot\ntrigger it.",
+          "params": [
+            {
+              "name": "managerId",
+              "type": "int",
+              "required": true,
+              "positional": true,
+              "path_param": true,
+              "default": null,
+              "description": "Manager id",
+              "fields": null
+            }
+          ],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null
+        }
+      }
+    },
+    "prices-json": {
+      "description": "Manage prices json",
+      "base_url": "https://livefpl.us",
+      "endpoints": {
+        "get-prices": {
+          "method": "GET",
+          "path": "/api/prices.json",
+          "description": "Dict keyed by FPL element_id. Each value: {name, team, type (GK/DEF/MID/FWD),\ntype_code, team_code, cost, progress, progress_tonight, per_hour}.\nUsed by LiveFPL's price-change predictor.",
+          "params": [],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "team": {
+      "description": "Manage team",
+      "endpoints": {
+        "get-set-piece-notes": {
+          "method": "GET",
+          "path": "/team/set-piece-notes/",
+          "description": "Set-piece taker notes per club",
+          "params": [],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "top-transfers-json": {
+      "description": "Manage top transfers json",
+      "base_url": "https://livefpl.us",
+      "endpoints": {
+        "get-top-transfers": {
+          "method": "GET",
+          "path": "/top_transfers.json",
+          "description": "Array of [out_player_id, in_player_id, count_million, pct_share].\nSorted descending by volume. Updated every few minutes during\ntransfer windows.",
+          "params": [],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    },
+    "version-json": {
+      "description": "Manage version json",
+      "base_url": "https://livefpl.us",
+      "endpoints": {
+        "get-version": {
+          "method": "GET",
+          "path": "/version.json",
+          "description": "Returns {gen, version, meter, store, league}. `gen` increments every\ntime LiveFPL's backend re-aggregates; clients use it as a cache key.",
+          "params": [],
+          "body": [],
+          "response": {
+            "type": "",
+            "item": ""
+          },
+          "pagination": null,
+          "no_auth": true
+        }
+      }
+    }
+  },
+  "types": {},
+  "cache": {},
+  "share": {},
+  "mcp": {},
+  "throttling": {}
+}

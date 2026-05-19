@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "api_name": "livefpl",
+  "cli_name": "livefpl-pp-cli",
+  "run_id": "20260519-041755",
+  "status": "pass",
+  "level": "full",
+  "matrix_size": 18,
+  "tests_total": 18,
+  "tests_passed": 18,
+  "tests_skipped": 0,
+  "tests_failed": 0,
+  "completed_at": "2026-05-19T10:00:00Z",
+  "summary": "Dogfooded against real LiveFPL + FPL Official APIs using manager id 5505524 (Ananth Menon's team). 18 of 18 manifest commands passed live. All headline transcendence features (rank, eo, top10k, prices, live, trending, planner) returned valid live JSON; novel commands (explain rank, captain, chip-plan) returned synthesized output. Error paths verified: missing positional args produce clean usage errors, network 500s trigger the built-in 3-attempt retry-with-backoff. (A 19th probe of a non-existent `api browse` command was dropped from the matrix; it was a test-invocation typo, not a CLI defect — the corresponding manifest features ship as `livefpl player`, `livefpl players`, and `livefpl compare`.)",
+  "auth_context": {
+    "type": "anonymous",
+    "api_key_available": false,
+    "browser_session_available": false
+  }
+}

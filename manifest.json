@@ -1,0 +1,40 @@
+{
+  "manifest_version": "0.3",
+  "name": "livefpl-mcp",
+  "display_name": "LiveFPL",
+  "version": "0.1.0",
+  "description": "Fantasy Premier League live data, EO, price changes, captain ranker, and chip planner — exposed as MCP tools.",
+  "author": {
+    "name": "Ananth Menon"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/ananthmenon10/livefpl",
+  "server": {
+    "type": "binary",
+    "entry_point": "bin/livefpl-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/bin/livefpl-mcp",
+      "args": [],
+      "env": {
+        "FANTASY_PREMIER_LEAGUE_SESSION_COOKIE": "${user_config.fantasy_premier_league_session_cookie}"
+      }
+    }
+  },
+  "user_config": {
+    "fantasy_premier_league_session_cookie": {
+      "type": "string",
+      "title": "FPL session cookie (optional)",
+      "description": "Optional. Paste the value of your 'pl_profile' cookie from fantasy.premierleague.com to unlock /me and /my-team endpoints. Most livefpl tools work without this — anonymous reads cover rank, prices, EO, fixtures, captain ranker, etc.",
+      "sensitive": true,
+      "required": false
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": [
+      "darwin",
+      "linux",
+      "win32"
+    ]
+  }
+}

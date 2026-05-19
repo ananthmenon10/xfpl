@@ -1,0 +1,26 @@
+# Build artifacts
+/livefpl
+/livefpl-mcp
+/dist/
+/build/
+
+# Go test artifacts
+*.test
+*.out
+coverage.txt
+*.prof
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Local caches
+.cache/
+
+# Secrets / per-user config (never commit)
+.env
+.env.*
+*.session
+config.toml

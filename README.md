@@ -158,6 +158,44 @@ This checks your configuration and credentials.
 xfpl bootstrap-static
 ```
 
+## Find your FPL team ID
+
+Most commands that operate on a single manager (`xfpl entry`, `xfpl points`, `xfpl explain rank`, `xfpl chip-plan`, `xfpl captains-history`, `xfpl cup`) take a numeric team ID. Here is how to find yours.
+
+### From the FPL website (fastest)
+
+1. Log in at https://fantasy.premierleague.com
+2. Click **Points** (or **Pick Team**) in the top nav
+3. Your team ID is the number in the URL:
+
+```
+https://fantasy.premierleague.com/entry/5505524/event/37
+                                        ^^^^^^^
+                                        team ID
+```
+
+### From the API (no login required, but you need to know your team ID already — useful only to confirm it works)
+
+```bash
+xfpl entry 5505524 --agent
+```
+
+Returns your manager name, country, and league memberships.
+
+### Finding someone else's team ID
+
+The FPL API does not expose a global "search manager by name" endpoint. To find a friend's team ID, you need a classic league you both belong to. Then:
+
+```bash
+# 314 = the public "Overall" league. Replace with any league ID you share.
+xfpl leagues-classic standings get-classic-league 314 --agent --page-standings 1 \
+  | jq '.results.standings.results[] | select(.player_name | test("ananth"; "i")) | {entry, entry_name, player_name}'
+```
+
+The `entry` field is the team ID. `entry_name` is the team name; `player_name` is the manager's real name. Both are searchable with `jq test()` (case-insensitive regex). To find your own leagues' IDs, run `xfpl entry <yourId> --agent` and look under `leagues.classic[].id`.
+
+If you have no league in common, you need the person to share their team ID directly — the FPL API has no global username search.
+
 ## Usage
 
 Run `xfpl --help` for the full command reference and flag list.

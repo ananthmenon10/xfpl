@@ -206,11 +206,11 @@ func newChipPlanCmd(flags *rootFlags) *cobra.Command {
 			}
 			var b struct {
 				Events []struct {
-					ID                  int    `json:"id"`
-					Name                string `json:"name"`
-					Finished            bool   `json:"finished"`
-					IsCurrent           bool   `json:"is_current"`
-					IsNext              bool   `json:"is_next"`
+					ID        int    `json:"id"`
+					Name      string `json:"name"`
+					Finished  bool   `json:"finished"`
+					IsCurrent bool   `json:"is_current"`
+					IsNext    bool   `json:"is_next"`
 				} `json:"events"`
 			}
 			_ = json.Unmarshal(boot, &b)
@@ -220,9 +220,9 @@ func newChipPlanCmd(flags *rootFlags) *cobra.Command {
 				return classifyAPIError(err, flags)
 			}
 			var fixtures []struct {
-				Event  int  `json:"event"`
-				TeamH  int  `json:"team_h"`
-				TeamA  int  `json:"team_a"`
+				Event    int  `json:"event"`
+				TeamH    int  `json:"team_h"`
+				TeamA    int  `json:"team_a"`
 				Finished bool `json:"finished"`
 			}
 			_ = json.Unmarshal(fix, &fixtures)
@@ -256,11 +256,11 @@ func newChipPlanCmd(flags *rootFlags) *cobra.Command {
 			}
 
 			out, _ := json.MarshalIndent(map[string]any{
-				"manager":         p.Data.ManagerName,
-				"chips_available": p.Data.ChipsAvailable,
-				"base_gw":         p.Data.BaseGW,
+				"manager":          p.Data.ManagerName,
+				"chips_available":  p.Data.ChipsAvailable,
+				"base_gw":          p.Data.BaseGW,
 				"upcoming_bgw_dgw": summaries,
-				"recommendation": chipRecommendation(p.Data.ChipsAvailable, summaries),
+				"recommendation":   chipRecommendation(p.Data.ChipsAvailable, summaries),
 			}, "", "  ")
 			fmt.Fprintln(cmd.OutOrStdout(), string(out))
 			return nil

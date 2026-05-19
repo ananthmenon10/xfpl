@@ -207,18 +207,18 @@ func newPointsCmd(flags *rootFlags) *cobra.Command {
 			}
 			var picks struct {
 				EntryHistory struct {
-					Points    int `json:"points"`
-					TotalPoints int `json:"total_points"`
-					Rank      int `json:"rank"`
+					Points             int `json:"points"`
+					TotalPoints        int `json:"total_points"`
+					Rank               int `json:"rank"`
 					EventTransfersCost int `json:"event_transfers_cost"`
-					Bank      int `json:"bank"`
-					Value     int `json:"value"`
+					Bank               int `json:"bank"`
+					Value              int `json:"value"`
 				} `json:"entry_history"`
 				Picks []struct {
-					Element    int  `json:"element"`
-					Position   int  `json:"position"`
-					Multiplier int  `json:"multiplier"`
-					IsCaptain  bool `json:"is_captain"`
+					Element       int  `json:"element"`
+					Position      int  `json:"position"`
+					Multiplier    int  `json:"multiplier"`
+					IsCaptain     bool `json:"is_captain"`
 					IsViceCaptain bool `json:"is_vice_captain"`
 				} `json:"picks"`
 			}
@@ -292,14 +292,14 @@ func newPointsCmd(flags *rootFlags) *cobra.Command {
 			}
 
 			payload := map[string]any{
-				"team_id":           teamID,
-				"gw":                gw,
-				"gw_points":         picks.EntryHistory.Points,
-				"gw_rank":           picks.EntryHistory.Rank,
-				"transfer_cost":     picks.EntryHistory.EventTransfersCost,
-				"team_value":        float64(picks.EntryHistory.Value) / 10.0,
-				"bank":              float64(picks.EntryHistory.Bank) / 10.0,
-				"breakdown":         breakdown,
+				"team_id":       teamID,
+				"gw":            gw,
+				"gw_points":     picks.EntryHistory.Points,
+				"gw_rank":       picks.EntryHistory.Rank,
+				"transfer_cost": picks.EntryHistory.EventTransfersCost,
+				"team_value":    float64(picks.EntryHistory.Value) / 10.0,
+				"bank":          float64(picks.EntryHistory.Bank) / 10.0,
+				"breakdown":     breakdown,
 			}
 			b, _ := json.MarshalIndent(payload, "", "  ")
 			fmt.Fprintln(cmd.OutOrStdout(), string(b))
@@ -365,4 +365,3 @@ func newCupCmd(flags *rootFlags) *cobra.Command {
 		},
 	}
 }
-

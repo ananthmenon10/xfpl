@@ -5,8 +5,8 @@ package cli
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"github.com/ananthmenon10/livefpl/internal/config"
+	"github.com/spf13/cobra"
 	"os"
 )
 

@@ -30,29 +30,29 @@ import (
 )
 
 type captainElement struct {
-	ID                int     `json:"id"`
-	WebName           string  `json:"web_name"`
-	Team              int     `json:"team"`
-	ElementType       int     `json:"element_type"`
-	NowCost           int     `json:"now_cost"`
-	Form              string  `json:"form"`
-	EPNext            string  `json:"ep_next"`
-	SelectedByPct     string  `json:"selected_by_percent"`
-	Status            string  `json:"status"`
-	Minutes           int     `json:"minutes"`
-	TotalPoints       int     `json:"total_points"`
-	ExpectedGI90      float64 `json:"expected_goal_involvements_per_90"`
-	News              string  `json:"news"`
-	StartsPer90       float64 `json:"starts_per_90"`
+	ID            int     `json:"id"`
+	WebName       string  `json:"web_name"`
+	Team          int     `json:"team"`
+	ElementType   int     `json:"element_type"`
+	NowCost       int     `json:"now_cost"`
+	Form          string  `json:"form"`
+	EPNext        string  `json:"ep_next"`
+	SelectedByPct string  `json:"selected_by_percent"`
+	Status        string  `json:"status"`
+	Minutes       int     `json:"minutes"`
+	TotalPoints   int     `json:"total_points"`
+	ExpectedGI90  float64 `json:"expected_goal_involvements_per_90"`
+	News          string  `json:"news"`
+	StartsPer90   float64 `json:"starts_per_90"`
 }
 
 type captainFixture struct {
-	Event      int  `json:"event"`
-	TeamH      int  `json:"team_h"`
-	TeamA      int  `json:"team_a"`
-	HDiff      int  `json:"team_h_difficulty"`
-	ADiff      int  `json:"team_a_difficulty"`
-	Finished   bool `json:"finished"`
+	Event    int  `json:"event"`
+	TeamH    int  `json:"team_h"`
+	TeamA    int  `json:"team_a"`
+	HDiff    int  `json:"team_h_difficulty"`
+	ADiff    int  `json:"team_a_difficulty"`
+	Finished bool `json:"finished"`
 }
 
 type captainEvent struct {
@@ -63,19 +63,19 @@ type captainEvent struct {
 }
 
 type captainScore struct {
-	ID         int     `json:"id"`
-	Name       string  `json:"name"`
-	Team       string  `json:"team"`
-	Position   string  `json:"position"`
-	GW         int     `json:"gw"`
-	EPNext     float64 `json:"ep_next"`
-	FDR        float64 `json:"fdr_avg"`
-	XGI90      float64 `json:"xgi_per_90"`
-	HomeBoost  float64 `json:"home_boost"`
-	MinRisk    float64 `json:"minutes_risk"`
-	DGWMult    float64 `json:"dgw_multiplier"`
-	Score      float64 `json:"captain_score"`
-	Fixtures   []string `json:"fixtures"`
+	ID        int      `json:"id"`
+	Name      string   `json:"name"`
+	Team      string   `json:"team"`
+	Position  string   `json:"position"`
+	GW        int      `json:"gw"`
+	EPNext    float64  `json:"ep_next"`
+	FDR       float64  `json:"fdr_avg"`
+	XGI90     float64  `json:"xgi_per_90"`
+	HomeBoost float64  `json:"home_boost"`
+	MinRisk   float64  `json:"minutes_risk"`
+	DGWMult   float64  `json:"dgw_multiplier"`
+	Score     float64  `json:"captain_score"`
+	Fixtures  []string `json:"fixtures"`
 }
 
 // scoreCaptain is the pure scoring function — no IO. Exposed so unit tests
@@ -254,9 +254,9 @@ Add --explain to see each component, --gw N to score a future gameweek, and
 			}
 
 			payload := map[string]any{
-				"gw":      targetGW,
-				"method":  "ep_next * (2.2-0.3*fdr) * home_boost * (1+0.3*xgi_per_90) * minutes_risk * dgw_multiplier",
-				"picks":   picks,
+				"gw":     targetGW,
+				"method": "ep_next * (2.2-0.3*fdr) * home_boost * (1+0.3*xgi_per_90) * minutes_risk * dgw_multiplier",
+				"picks":  picks,
 			}
 			if !explain {
 				slim := make([]map[string]any, 0, len(picks))

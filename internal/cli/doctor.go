@@ -13,10 +13,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/spf13/cobra"
 	"github.com/ananthmenon10/livefpl/internal/client"
 	"github.com/ananthmenon10/livefpl/internal/config"
 	"github.com/ananthmenon10/livefpl/internal/store"
+	"github.com/spf13/cobra"
 )
 
 // looksLikeDoctorInterstitial reports whether the response body matches a known

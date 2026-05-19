@@ -13,14 +13,14 @@ import (
 	"strings"
 	"time"
 
-	mcplib "github.com/mark3labs/mcp-go/mcp"
-	"github.com/mark3labs/mcp-go/server"
 	"github.com/ananthmenon10/livefpl/internal/cli"
 	"github.com/ananthmenon10/livefpl/internal/client"
 	"github.com/ananthmenon10/livefpl/internal/cliutil"
 	"github.com/ananthmenon10/livefpl/internal/config"
 	"github.com/ananthmenon10/livefpl/internal/mcp/cobratree"
 	"github.com/ananthmenon10/livefpl/internal/store"
+	mcplib "github.com/mark3labs/mcp-go/mcp"
+	"github.com/mark3labs/mcp-go/server"
 )
 
 // RegisterTools registers all API operations as MCP tools.

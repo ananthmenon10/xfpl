@@ -12,9 +12,9 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/spf13/cobra"
 	"github.com/ananthmenon10/livefpl/internal/client"
 	"github.com/ananthmenon10/livefpl/internal/config"
+	"github.com/spf13/cobra"
 )
 
 var version = "1.0.0"

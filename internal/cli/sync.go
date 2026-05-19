@@ -6,9 +6,9 @@ package cli
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/spf13/cobra"
 	"github.com/ananthmenon10/livefpl/internal/cliutil"
 	"github.com/ananthmenon10/livefpl/internal/store"
+	"github.com/spf13/cobra"
 	"net/url"
 	"os"
 	"regexp"

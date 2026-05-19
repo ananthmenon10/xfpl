@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mark3labs/mcp-go/server"
 	mcptools "github.com/ananthmenon10/livefpl/internal/mcp"
+	"github.com/mark3labs/mcp-go/server"
 )
 
 func main() {
